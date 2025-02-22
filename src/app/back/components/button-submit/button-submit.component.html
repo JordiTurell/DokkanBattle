@@ -1,0 +1,17 @@
+<button type="button" 
+    class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg hover:animate-pulsing font-medium 
+    hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:outline-none shadow-lg"
+    (click)="onClick()"
+    [disabled]="isLoading">
+    @if(!isLoading){
+        {{textValue}}
+    }
+    
+    @if(isLoading){
+        <div class="dots flex justify-center items-center">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    }
+</button>

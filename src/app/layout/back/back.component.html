@@ -1,0 +1,12 @@
+<div class="min-h-screen bg-gray-100">
+    <app-back-toolbar (toggleSidebar)="toggleSidebar()"></app-back-toolbar>
+    <app-back-asider [isOpen]="isSidebarOpen"></app-back-asider>
+
+    <main classh="h-screen w-screen transition-all duration-75">
+        <div class="px-4 py-6">
+            <div class="container bg-gray-300 rounded-lg">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </main>
+</div>
