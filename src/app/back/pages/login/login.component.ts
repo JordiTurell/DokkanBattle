@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { LoginService } from '../../service/login/login.service';
 import { AuthService } from '../../service/auth/auth.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-
+  urlimages = environment.urlimages;
   loginForm: FormGroup;
   @Input() isLoading:boolean = false
   @Input() errorMessage:string = ''

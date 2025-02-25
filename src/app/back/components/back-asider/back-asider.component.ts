@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-back-asider',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './back-asider.component.html',
   styleUrl: './back-asider.component.css'
 })

@@ -1,1 +1,22 @@
-<p>back-asider works!</p>
+<nav class="text-white">
+  <ul class="flex space-x-6 p-4 justify-center">
+      <!-- Inicio -->
+      <li class="relative group">
+          <a href="#" class="hover:text-gray-200">Inicio</a>
+      </li>
+
+      <!-- Servicios (con submenú) -->
+      <li class="relative group">
+          <a routerLink="/back/personajes" class="hover:text-gray-200">Personajes</a>
+      </li>
+
+      <!-- Productos (con submenú) -->
+      <li class="relative group">
+          <a href="#" class="hover:text-gray-200">Administración</a>
+          <ul class="absolute left-0 mt-2 w-48 bg-white text-gray-700 shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Usuarios</a></li>
+              <li><a routerLink="/back/categorias" class="block px-4 py-2 hover:bg-gray-200">Categorías</a></li>
+          </ul>
+      </li>
+  </ul>
+</nav>

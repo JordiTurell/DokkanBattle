@@ -1,1 +1,36 @@
-<p>back-toolbar works!</p>
+<nav class="bg-gray-800 fixed w-screen z-30 top-0 left-0 right-0">
+  <div class="max-w-full mx-auto px-3 py-3 lg:px-5 lg:pl-3">
+    <div class="flex items-center justify-between">
+      <!-- Logo y Botón menú -->
+      <div class="flex items-center">
+        <button 
+          (click)="toggleSidebar.emit()"
+          class="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <img src="{{urlassets}}/logo.jpg" class="h-8" alt="Logo">
+      </div>
+      
+      <!-- Perfil Usuario -->
+      <div class="flex items-center">
+        <div class="relative">
+          <button 
+            (click)="isProfileOpen = !isProfileOpen"
+            class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300">
+            <img class="w-8 h-8 rounded-full cursor-pointer" src="/avatar.png" alt="avatar">
+          </button>
+          <!-- Menú desplegable -->
+          @if(isProfileOpen){
+            <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mi Perfil</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Configuración</a>
+              <p class="block px-4 py-2 text-sm text-red-600 cursor-pointer hover:bg-gray-100" (click)="closeSession()">Cerrar Sesión</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

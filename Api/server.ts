@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 import sequelize from "./config/database";
 import usuariosRoutes from "./routes/usuariosRoutes";
+import categoriasRoutes from "./routes/categoriasRoutes";
+import tiposRoutes from "./routes/tiposRoutes";
+import linksRoutes from "./routes/linksRoutes";
+import linksDescripcionRoutes from "./routes/linksDescripcionRoutes";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -14,7 +18,10 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/auth', usuariosRoutes);
-
+app.use('/api/categorias', categoriasRoutes);
+app.use('/api/tipos', tiposRoutes);
+app.use('/api/links', linksRoutes);
+app.use('/api/linksdescripcion', linksDescripcionRoutes);
 
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
