@@ -1,5 +1,5 @@
 export interface LinkDescripcion {
   id: number;
-  nombre: string;
+  descripcion: string;
   idlink: number;
 }

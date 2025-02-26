@@ -15,11 +15,12 @@ export class LinkDescriptionService {
 
   }
 
-  listar(page: number, size: number): Observable<ResponseList<LinkDescripcion>>{
+  listar(page: number, size: number, idlink: number): Observable<ResponseList<LinkDescripcion>>{
     let headers = this.headers.getheader();
     const req = {
       page: page,
-      size: size
+      size: size,
+      filter: idlink
     }
     return this.http.post<ResponseList<LinkDescripcion>>(`${environment.api}/linksdescripcion/listar`, req, { headers: headers });
   }

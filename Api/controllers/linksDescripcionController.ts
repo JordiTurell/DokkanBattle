@@ -8,12 +8,14 @@ export class LinksDescripcionController {
       const page = req.body.page || 1;
       const limit = parseInt(req.body.limit as string) || 10;
       const offset = (page - 1) * limit;
+      const filter = req.body.filter
 
       const total = await LinkDescripcion.count();
       const linksDescripcion = await LinkDescripcion.findAll({
+        where: { idlink: filter },
         limit: limit,
         offset: offset,
-        order: [['id', 'DESC']]
+        order: [['id', 'ASC']]
       });
       
       const response: ResponseList<LinkDescripcion> = {
@@ -31,9 +33,12 @@ export class LinksDescripcionController {
 
   async crear(req: Request, res: Response) {
     try{
-      const linkDescripcion = await LinkDescripcion.create(req.body);
-      res.json(linkDescripcion);
+      const { descripcion, idlink } = req.body
+      
+      const linkdescripcion = await LinkDescripcion.create({ descripcion, idlink })
+      res.json(linkdescripcion);
     }catch (error){
+      console.log(error)
       res.status(500).json({ error: 'Error al crear el link de descripcion' });
     }
   }

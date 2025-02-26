@@ -4,7 +4,7 @@
     <form [formGroup]="form" class="flex items-center justify-between gap-4">
         <div class="flex-1">
           <label for="nombre" class="text-sm font-medium">Nombre</label>
-          <input type="text" class="w-full p-2 rounded-md border border-gray-300" id="nombre" formControlName="nombre">
+          <input type="text" class="w-full p-2 rounded-md border border-gray-300" id="descripcion" formControlName="descripcion">
           <input type="hidden" id="idlink" formControlName="idlink">
         </div>
         <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-md whitespace-nowrap mt-6" (click)="isedit ? edit() : nuevo()">{{ isedit ? 'Editar' : 'Agregar Nivel' }}</button>
@@ -22,7 +22,7 @@
       @for (nivel of niveles; track nivel.id) {
         <tr>
           <td>{{nivel.id}}</td>
-          <td>{{nivel.nombre}}</td>
+          <td>{{nivel.descripcion}}</td>
           <td>
             <button class="bg-blue-500 text-white px-4 py-2 rounded-md whitespace-nowrap" (click)="editar(nivel.id)">Editar</button>
             <button class="bg-red-500 text-white px-4 py-2 rounded-md whitespace-nowrap" (click)="eliminar(nivel.id)">Eliminar</button>

@@ -23,18 +23,18 @@ export class BackLinkDescripcionComponent implements OnInit{
 
   constructor(private linkDescripcionService: LinkDescriptionService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required],
       idlink: [0, Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.cargarLista();
     this.idlink = this.route.snapshot.params['id'];
+    this.cargarLista();    
   }
 
   cargarLista() {
-    this.linkDescripcionService.listar(this.currentPage, this.itemsPerPage).subscribe({
+    this.linkDescripcionService.listar(this.currentPage, this.itemsPerPage, this.idlink).subscribe({
       next: (response) => {
          this.niveles = response.items;
          this.totalItems = response.total;
@@ -62,8 +62,8 @@ export class BackLinkDescripcionComponent implements OnInit{
   nuevo() {
     this.nivel = {
       id: 0,
-      nombre: this.form.value.nombre,
-      idlink: this.form.value.idlink
+      descripcion: this.form.value.descripcion,
+      idlink: this.idlink
     }
     this.linkDescripcionService.nuevo(this.nivel).subscribe({
       next: (response) => {
@@ -75,7 +75,7 @@ export class BackLinkDescripcionComponent implements OnInit{
   }
 
   edit(){
-    this.nivel.nombre = this.form.value.nombre;
+    this.nivel.descripcion = this.form.value.descripcion;
     this.nivel.idlink = this.form.value.idlink;
     
     this.linkDescripcionService.editar(this.nivel).subscribe({
@@ -94,7 +94,7 @@ export class BackLinkDescripcionComponent implements OnInit{
       next: (response) => {
         this.nivel = response;
         this.form.patchValue({
-          nombre: this.nivel.nombre,
+          descripcion: this.nivel.descripcion,
           idlink: this.nivel.idlink
         });
       },
