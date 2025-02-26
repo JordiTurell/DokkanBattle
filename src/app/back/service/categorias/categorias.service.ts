@@ -27,7 +27,7 @@ export class CategoriasService {
   
   updateCategoria(categoria: Categoria): Observable<Categoria> {
     let header: HttpHeaders = this.headers.getheader();
-    return this.http.put<Categoria>(`${environment.api}/categorias/editar/${categoria.id}`, categoria, { headers: header });
+    return this.http.put<Categoria>(`${environment.api}/categorias/actualizar/${categoria.id}`, categoria, { headers: header });
   }
 
   deleteCategoria(id: number): Observable<void> {

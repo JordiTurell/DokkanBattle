@@ -1,1 +1,42 @@
-<p>back-list-tipos works!</p>
+<h1 class="text-2xl font-bold">Listado de Tipos</h1>
+<div class="flex flex-col gap-4">
+  <div class="flex justify-start mt-4">
+      <button class="bg-blue-500 text-white px-4 py-2 rounded-md" (click)="nuevoTipo()">
+          <i class="fa-solid fa-plus"></i>
+          Nuevo Tipo
+      </button>
+  </div>
+</div>
+<div class="container mt-4">
+  <table class="w-full border border-gray-300 rounded-lg mb-4">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="px-4 py-2 text-left">ID</th>
+        <th class="px-4 py-2 text-left">Nombre</th>
+        <th class="px-4 py-2 text-left">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (tipo of tipos; track tipo.id) {
+      <tr>
+        <td>{{tipo.id}}</td>
+        <td class="p-2">
+          <img src="{{urlimage}}{{tipo.pathimagen}}" alt="Imagen del tipo" class="w-20 h-auto object-cover" />
+        </td>
+        <td>
+          <div class="relative group inline-block">
+            <button class="bg-blue-500 text-white p-2 rounded-full hover:bg-gray-300 focus:outline-none" (click)="editar(tipo.id)">
+              Editar
+            </button>
+          </div>
+          <div class="relative group inline-block">
+            <button class="bg-red-500 text-white p-2 rounded-full hover:bg-gray-300 focus:outline-none" (click)="eliminar(tipo.id)">
+              Eliminar
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

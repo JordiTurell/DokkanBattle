@@ -31,7 +31,8 @@ export class LinksController {
 
   async crear(req: Request, res: Response) {
     try{
-      const link = await Links.create(req.body);
+      const { nombre } = req.body;
+      const link = await Links.create({ nombre });
       res.json(link);
     }catch (error){
       res.status(500).json({ error: 'Error al crear el link' });
