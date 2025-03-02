@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LinkDescripcion } from '../../../models/link-descripcion';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LinkDescriptionService } from '../../../service/link-description/link-description.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LinksService } from '../../../service/links/links.service';
 
 @Component({
   selector: 'app-back-link-descripcion',
@@ -20,8 +21,9 @@ export class BackLinkDescripcionComponent implements OnInit{
   isedit: boolean = false;
   nivel!: LinkDescripcion;
   form: FormGroup;
+  @Input()linkTitle: string =  ''
 
-  constructor(private linkDescripcionService: LinkDescriptionService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private linksService: LinksService, private linkDescripcionService: LinkDescriptionService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       descripcion: ['', Validators.required],
       idlink: [0, Validators.required],
@@ -31,6 +33,9 @@ export class BackLinkDescripcionComponent implements OnInit{
   ngOnInit(): void {
     this.idlink = this.route.snapshot.params['id'];
     this.cargarLista();    
+    this.linksService.obtenerLink(this.idlink).subscribe((response) => {
+      this.linkTitle = response.nombre
+    })
   }
 
   cargarLista() {
