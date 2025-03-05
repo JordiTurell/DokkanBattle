@@ -12,6 +12,8 @@ import { BackFichaTiposComponent } from './back/pages/tipos/back-ficha-tipos/bac
 import { BackListLinksComponent } from './back/pages/links/back-list-links/back-list-links.component';
 import { BackFichaLinksComponent } from './back/pages/links/back-ficha-links/back-ficha-links.component';
 import { BackLinkDescripcionComponent } from './back/pages/links/back-link-descripcion/back-link-descripcion.component';
+import { ListaIconosComponent } from './back/pages/iconos/lista-iconos/lista-iconos.component';
+import { FichaIconosComponent } from './back/pages/iconos/ficha-iconos/ficha-iconos.component';
 
 export const routes: Routes = [
     { path: 'back/login', component: LoginComponent },
@@ -29,6 +31,8 @@ export const routes: Routes = [
             { path: 'links', component: BackListLinksComponent, canActivate: [AuthGuard] },
             { path: 'links/:id', component: BackFichaLinksComponent, canActivate: [AuthGuard] },
             { path: 'links/niveles/:id', component: BackLinkDescripcionComponent, canActivate: [AuthGuard] },
+            { path: 'iconos', component: ListaIconosComponent, canActivate:[AuthGuard]},
+            { path: 'iconos/:id', component: FichaIconosComponent, canActivate:[AuthGuard]},
             { path: '', redirectTo: 'login', pathMatch: 'full' }
         ]
     },

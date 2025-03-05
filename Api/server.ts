@@ -7,6 +7,7 @@ import tiposRoutes from "./routes/tiposRoutes";
 import linksRoutes from "./routes/linksRoutes";
 import linksDescripcionRoutes from "./routes/linksDescripcionRoutes";
 import nivelCartaRoutes from './routes/nivelCartaRoutes';
+import iconosRouter from './routes/iconosRoutes';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -24,6 +25,7 @@ app.use('/api/tipos', tiposRoutes);
 app.use('/api/links', linksRoutes);
 app.use('/api/linksdescripcion', linksDescripcionRoutes);
 app.use('/api/nivelcarta', nivelCartaRoutes);
+app.use('/api/iconos', iconosRouter);
 
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
