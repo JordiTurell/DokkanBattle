@@ -4,6 +4,7 @@ import { Categoria } from "../models/categorias";
 import { LinkDescripcion } from "../models/linkdescripcion";
 import { Links } from "../models/links";
 import { Tipo } from "../models/tipos";
+import { nivelCarta } from "../models/nivelCarta"
 
 const sequelize = new Sequelize({
     dialect: "sqlite",
@@ -13,7 +14,8 @@ const sequelize = new Sequelize({
         Categoria,
         Tipo,
         Links,
-        LinkDescripcion
+        LinkDescripcion,
+        nivelCarta
     ]
 });
 
