@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../../../environments/environment';
+import { Icono } from '../../../models/icono';
+import { IconosService } from '../../../service/iconos/iconos.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-ficha-iconos',
@@ -6,6 +10,44 @@ import { Component } from '@angular/core';
   templateUrl: './ficha-iconos.component.html',
   styleUrl: './ficha-iconos.component.css'
 })
-export class FichaIconosComponent {
+export class FichaIconosComponent implements OnInit{
+  isedit:Boolean = false
+  urlicon:string = environment.urlicon
+  icon!:Icono
+  formdata!: FormData
+  imageView:string | ArrayBuffer | null = null
 
+  constructor(private iconos: IconosService, private router: Router, private activateRoute: ActivatedRoute){
+
+  }
+
+  ngOnInit(): void {
+    const id = this.activateRoute.snapshot.params['id']
+    if(id != 0){
+      this.isedit = true
+      this.formdata = new FormData()  
+    }else{
+      this.formdata = new FormData()  
+    }
+  }
+
+  onFileSelected(event:Event){
+    const input = event.target as HTMLInputElement
+    if(input.files && input.files.length > 0){
+      const file = input.files[0]
+      this.formdata.set('image', file)
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        this.imageView = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  uploadFile(){
+    this.iconos.updateIcon(this.formdata).subscribe((response) => {
+      this.router.navigate(['/back/iconos'])
+    })
+  }
 }

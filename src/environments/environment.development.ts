@@ -1,5 +1,6 @@
 export const environment = {
     api: 'http://localhost:3000/api',
     token: 'token-api',
-    urlimages: 'http://localhost:4200/images'
+    urlimages: 'http://localhost:4200/images',
+    urlicon: 'http://localhost:4200/icons'
 };

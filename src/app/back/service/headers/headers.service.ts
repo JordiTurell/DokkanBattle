@@ -26,6 +26,19 @@ export class HeadersService {
     return this.headers
   }
 
+  getheaderUpdateImage():HttpHeaders{
+    let jsonlocalstorage = localStorage.getItem(this.sesion)
+    if(jsonlocalstorage != null){
+      this.token = jsonlocalstorage
+    }
+    this.headers = new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${this.token}`
+    });
+
+    return this.headers
+  }
+
   getheaderLogin():HttpHeaders{
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json'
