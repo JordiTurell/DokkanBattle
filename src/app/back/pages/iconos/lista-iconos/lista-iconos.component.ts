@@ -50,7 +50,15 @@ export class ListaIconosComponent implements OnInit {
   }
 
   eliminar(item:Icono){
+    this.iconosService.eliminar(item.id).subscribe({
+      next:(response) => {
+        this.cargarIconos()
+      },
+      error:(err) => {
 
+      },
+      complete: () => { }
+    })
   }
 
   onPageChange(page: number) {

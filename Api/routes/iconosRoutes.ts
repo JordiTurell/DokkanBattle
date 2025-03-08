@@ -7,5 +7,5 @@ const iconosController = new IconosController();
 
 router.post('/listar', verificarToken, iconosController.listar);
 router.post('/update', verificarToken, iconosController.update);
-
+router.delete('/eliminar/:id', verificarToken, iconosController.delete);
 export default router;

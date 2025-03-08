@@ -31,5 +31,10 @@ export class IconosService {
       
       let header: HttpHeaders = this.headers.getheader();
       return this.http.post<ResponseList<Icono>>(`${environment.api}/iconos/listar`, responselist, { headers: header });
-    }
+  }
+
+  eliminar(id: number): Observable<Responseitem<string>>{
+    let headers: HttpHeaders = this.headers.getheader()
+    return this.http.delete<Responseitem<string>>(`${environment.api}/iconos/delete/${id}`, { headers: headers })
+  }
 }

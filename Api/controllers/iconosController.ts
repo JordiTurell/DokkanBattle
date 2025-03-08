@@ -65,4 +65,19 @@ export class IconosController{
       res.end(JSON.stringify({ message: "Archivo guardado correctamente" }));
     });
   }
+
+  async delete(req: Request, res: Response){
+    const id = req.params.id;
+    const icon = await Iconos.findByPk(id);
+    if (icon) {
+      const filePath = path.resolve(__dirname, `../../public/icons/${icon.pathicon}`);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      await icon.destroy();
+      res.json({ message: "Icono eliminado correctamente" });
+    } else {
+      res.status(404).json({ error: "Icono no encontrado" });
+    }
+  }
 }
