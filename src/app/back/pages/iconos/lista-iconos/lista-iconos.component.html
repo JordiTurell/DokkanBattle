@@ -15,7 +15,7 @@
       @for (icono of iconos; track icono.id) {
       <tr>
         <td>{{icono.id}}</td>
-        <td><img src="{{apiicon}}/{{icono.path}}" /></td>
+        <td><img src="{{apiicon}}/{{icono.pathicon}}?t={{datetime.getTime()}}" /></td>
         <td>
           <div class="relative group inline-block">
             <button type="button" class="p-2 rounded-full hover:bg-gray-300 focus:outline-none" (click)="editar(icono)">Editar</button>

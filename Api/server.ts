@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import sequelize from "./config/database";
+
+//Implementación de rutas
 import usuariosRoutes from "./routes/usuariosRoutes";
 import categoriasRoutes from "./routes/categoriasRoutes";
 import tiposRoutes from "./routes/tiposRoutes";
@@ -13,9 +15,10 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors({
     origin: 'http://localhost:4200',
-    methods: [' GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-file-name']
 }));
+
 app.use(express.json());
 
 // Rutas

@@ -43,11 +43,11 @@ export class BackListPersonajesComponent {
   }
 
   crear() {
-    this.router.navigate(['/back/personaje/0']);
+    this.router.navigate(['/back/personajes/0']);
   }
 
   editar(item: any) {
-    this.router.navigate([`/back/personaje/${item.id}`]);
+    this.router.navigate([`/back/personajes/${item.id}`]);
   }
 
   eliminar(item: any) {

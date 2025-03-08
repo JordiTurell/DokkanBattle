@@ -36,7 +36,11 @@ export class Carta extends Model{
     type:DataType.BOOLEAN,
     allowNull: false
   })
-  eza!: boolean
-
+  eza!: boolean 
   
+  @Column({
+    type:DataType.STRING,
+    allowNull: false
+  })
+  pathcard!: string
 }

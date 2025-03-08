@@ -18,6 +18,7 @@ export class ListaIconosComponent implements OnInit {
   itemsPerPage = 10;
   totalItems = 0;
   totalPaginas = 0;
+  datetime: Date = new Date();
 
   constructor(private router: Router, private iconosService: IconosService){
 

@@ -16,6 +16,7 @@ export class FichaIconosComponent implements OnInit{
   icon!:Icono
   formdata!: FormData
   imageView:string | ArrayBuffer | null = null
+  selectedFile!: File;
 
   constructor(private iconos: IconosService, private router: Router, private activateRoute: ActivatedRoute){
 
@@ -34,18 +35,20 @@ export class FichaIconosComponent implements OnInit{
   onFileSelected(event:Event){
     const input = event.target as HTMLInputElement
     if(input.files && input.files.length > 0){
-      const file = input.files[0]
-      this.formdata.set('image', file)
-
+      this.selectedFile = input.files[0]
+      
       const reader = new FileReader()
       reader.onload = () => {
         this.imageView = reader.result
       }
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(this.selectedFile)
     }
   }
 
   uploadFile(){
+    this.formdata = new FormData()
+    this.formdata.append('image', this.selectedFile)
+    
     this.iconos.updateIcon(this.formdata).subscribe((response) => {
       this.router.navigate(['/back/iconos'])
     })

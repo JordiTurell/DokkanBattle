@@ -6,6 +6,7 @@ const router = Router();
 const nivelcartaController = new nivelCartaController();
 
 router.post('/listar', verificarToken, nivelcartaController.listar);
+router.get('/listarAll', verificarToken, nivelcartaController.listarAll);
 router.post('/crear', verificarToken, nivelcartaController.crear);
 router.put('/actualizar/:id', verificarToken, nivelcartaController.actualizar);
 router.delete('/eliminar/:id', verificarToken, nivelcartaController.eliminar);

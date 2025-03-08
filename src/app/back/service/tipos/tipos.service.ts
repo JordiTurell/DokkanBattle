@@ -15,6 +15,11 @@ export class TiposService {
 
   }
 
+  listarAllTipos(): Observable<Tipo[]> {
+    let header: HttpHeaders = this.headers.getheader();
+    return this.http.get<Tipo[]>(`${environment.api}/tipos/alllist`, { headers: header });
+  }
+
   listarTipos(page: number = 1, limit: number = 10): Observable<ResponseList<Tipo>> {
     const responselist: ResponseList<Tipo> = {
       items: [],

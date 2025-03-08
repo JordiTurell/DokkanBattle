@@ -78,4 +78,13 @@ export class TiposController {
         res.status(500).json({ error: 'Error al obtener el tipo' });
       }
     }
+
+    async alllist(req: Request, res: Response) {
+      try{
+        const tipos = await Tipo.findAll();
+        res.json(tipos);
+      }catch (error){
+        res.status(500).json({ error: 'Error al obtener los tipos' });
+      }
+    }
 }

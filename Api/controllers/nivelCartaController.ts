@@ -29,6 +29,15 @@ export class nivelCartaController {
       }
   }
 
+  async listarAll(req: Request, res: Response) {
+    try{
+      const nivelcarta = await nivelCarta.findAll();
+      res.json(nivelcarta);
+    }catch (error){
+      res.status(500).json({ error: 'Error al obtener los links' });
+    }
+  }
+
   async crear(req: Request, res: Response) {
     try{
       const { nombre } = req.body;

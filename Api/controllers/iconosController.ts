@@ -8,6 +8,7 @@ import * as path from "path";
 export class IconosController{
   async listar(req: Request, res: Response) {
     try {
+      console.log(req.body)
       const page = req.body.page || 1;
       const limit = parseInt(req.body.limit as string) || 10;
       const offset = (page - 1) * limit;
@@ -31,39 +32,21 @@ export class IconosController{
 
       res.json(response);
     } catch (error) {
-      res.status(500).json({ error: 'Error al obtener las categorías' });
+      console.log(error);
+      res.status(500).json({ error: 'Error al obtener los iconos' });
     }
   }
 
   async update(req: Request, res: Response){
-    let body: Buffer[] = [];
-    req.on("data", (chunk) => {
-        body.push(chunk);
-    });
-    
-    req.on("end", async () => {
-      const rawData = Buffer.concat(body);
-      const uploadDir = path.resolve(__dirname, '../../public/icons');
-      const fileName = req.headers["x-file-name"] as string || `file_${Date.now()}.png`;
-      const fileExtension = path.extname(fileName) || ".png";
-      const safeFileName = path.basename(fileName, fileExtension).replace(/[^a-zA-Z0-9_-]/g, "");
-
-      const filePath = path.join(uploadDir, `${safeFileName}${fileExtension}`);
-
-
-      if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true });
-      }
-
-      fs.writeFileSync(filePath, rawData);
-      console.log("Archivo guardado en:", filePath);
-      const pathicon = `${safeFileName}${fileExtension}`;
-      
-      const icon = await Iconos.create({ pathicon });
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ message: "Archivo guardado correctamente" }));
-    });
+    const file: Express.Multer.File | undefined = req.file;
+    if(!file){
+      console.log('No se ha enviado el archivo');
+      res.status(400).json({error: 'No se ha enviado el archivo'});
+      return;
+    }
+    console.log('Icono subido correctamente');
+    const icon = await Iconos.create({pathicon: file.filename});
+    res.status(200).json({message: 'Icono subido correctamente'});
   }
 
   async delete(req: Request, res: Response){

@@ -10,5 +10,6 @@ router.post('/crear', verificarToken, tiposController.crear);
 router.put('/actualizar/:id', verificarToken, tiposController.actualizar);
 router.delete('/eliminar/:id', verificarToken, tiposController.eliminar);
 router.get('/obtener/:id', verificarToken, tiposController.obtener);
+router.get('/alllist', verificarToken, tiposController.alllist);
 
 export default router;

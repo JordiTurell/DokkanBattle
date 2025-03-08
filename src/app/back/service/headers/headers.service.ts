@@ -32,7 +32,6 @@ export class HeadersService {
       this.token = jsonlocalstorage
     }
     this.headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${this.token}`
     });
 
