@@ -1,4 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
+import config from "./config";
+
+//Modelos
 import { Usuario } from "../models/usuario";
 import { Categoria } from "../models/categorias";
 import { LinkDescripcion } from "../models/linkdescripcion";
@@ -9,8 +12,8 @@ import { Iconos } from "../models/iconos";
 import { Carta } from "../models/carta";
 
 const sequelize = new Sequelize({
-    dialect: "sqlite",
-    storage: "./database.sqlite",
+    dialect: config.development.dialect,
+    storage: config.development.storage,
     models: [
         Usuario,
         Categoria,
@@ -22,6 +25,7 @@ const sequelize = new Sequelize({
         Carta
     ]
 });
+
 
 sequelize.sync();
 

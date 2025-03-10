@@ -50,7 +50,7 @@ export class BackFichaPersonajesComponent implements OnInit{
 
   onSelectNivel(event:Event){
     const id = (event.target as HTMLSelectElement).value;
-    
+    console.log(id);
   }
 
   onSubmit(){

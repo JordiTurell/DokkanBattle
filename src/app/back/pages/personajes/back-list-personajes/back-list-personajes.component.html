@@ -15,7 +15,6 @@
       @for (personaje of personajes; track personaje.id) {
       <tr>
         <td>{{personaje.id}}</td>
-        <td>{{personaje.nombre}}</td>
         <td>
           <div class="relative group inline-block">
             <button type="button" class="p-2 rounded-full hover:bg-gray-300 focus:outline-none" (click)="editar(personaje)">Editar</button>

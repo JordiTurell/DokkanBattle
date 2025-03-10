@@ -40,8 +40,8 @@
       <label class="block text-sm font-medium text-gray-700">Nivel de carta</label>
       <select id="combo-nivel-carta" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" (change)="onSelectNivel($event)">
         <option value="0">Selecciona un nivel</option>
-        @for(carta of allnivelcarta; track carta.id){
-          <option value="{{carta.id}}">{{carta.nombre}}</option>
+        @for(nivelcarta of allnivelcarta; track nivelcarta.id){
+          <option value="{{nivelcarta.id}}">{{nivelcarta.nombre}}</option>
         }
       </select>
     </div>

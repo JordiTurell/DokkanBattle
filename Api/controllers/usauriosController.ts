@@ -51,35 +51,38 @@ export class UsuariosController {
      // Login de usuario
     async login(req: Request, res: Response) {
         try {
-        const { email, password } = req.body;
+            const { email, password } = req.body;
 
-        // Buscar usuario
-        const usuario = await Usuario.findOne({ where: { email } });
-        if (!usuario) {
-            return res.status(400).json({ error: 'Usuario no encontrado' });
-        }
-
-        // Verificar contraseña
-        const passwordValida = await bcrypt.compare(password, usuario.password);
-        if (!passwordValida) {
-            return res.status(400).json({ error: 'Contraseña incorrecta' });
-        }
-
-        // Generar JWT
-        const token = jwt.sign(
-            { id: usuario.id, email: usuario.email, rol: usuario.rol },
-            JWT_SECRET,
-            { expiresIn: '24h' }
-        );
-
-        return res.status(200).json({
-            status: true,
-            data:{
-                token: token,
+            // Buscar usuario
+            const usuario = await Usuario.findOne({ where: { email } });
+            if (!usuario) {
+                return res.status(400).json({ error: 'Usuario no encontrado' });
             }
-        });
+
+            // Verificar contraseña
+            
+            const passwordValida = await bcrypt.compare(password, usuario.password);
+            console.log(passwordValida)
+            if (!passwordValida) {
+                return res.status(400).json({ error: 'Contraseña incorrecta' });
+            }
+
+            // Generar JWT
+            const token = jwt.sign(
+                { id: usuario.id, email: usuario.email, rol: usuario.rol },
+                JWT_SECRET,
+                { expiresIn: '24h' }
+            );
+
+            return res.status(200).json({
+                status: true,
+                data:{
+                    token: token,
+                }
+            });
         } catch (error) {
-        return res.status(500).json({ error: 'Error en el login' });
+            console.log(error)
+            return res.status(500).json({ error: 'Error en el login' });
         }
     }
 
@@ -91,4 +94,19 @@ export class UsuariosController {
         return res.status(500).json({ error: 'Error al obtener los usuarios' });
         }
     } 
+    
+    async deleteUsuario(req: Request, res: Response) {
+        try {
+            console.log('holi')
+            const { id } = req.body;
+            const usuario = await Usuario.findByPk(id);
+            if (!usuario) {
+                return res.status(404).json({ error: 'Usuario no encontrado' });
+            }
+            await usuario.destroy();
+            return res.status(200).json({ message: 'Usuario eliminado correctamente' });
+        } catch (error) {
+            return res.status(500).json({ error: 'Error al eliminar el usuario' });
+        }
+    }
 }
