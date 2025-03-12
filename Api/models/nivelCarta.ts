@@ -7,4 +7,10 @@ export class nivelCarta extends Model{
     allowNull: false
   })
   nombre!: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false
+  })
+  pathicon!:string;
 }

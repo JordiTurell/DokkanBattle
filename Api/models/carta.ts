@@ -43,4 +43,10 @@ export class Carta extends Model{
     allowNull: false
   })
   pathcard!: string
+
+  @Column({
+    type:DataType.STRING,
+    allowNull: false
+  })
+  pathiconcarta!: string
 }
