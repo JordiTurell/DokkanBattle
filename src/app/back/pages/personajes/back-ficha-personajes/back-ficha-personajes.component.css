@@ -1,0 +1,34 @@
+.card-icon{
+  display: grid;
+}
+
+.unselectable{
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.card-info-base{
+  z-index: 0;
+}
+
+.card-icon-item{
+  grid-column: 1;
+  grid-row:1;
+  display: block;
+  pointer-events: none;
+}
+
+.card-info-lwf{
+  z-index: 1;
+}
+
+canvas{
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+
+.card-icon-item-rarity{
+  margin-top: 88px;
+  margin-left: -85px;
+}

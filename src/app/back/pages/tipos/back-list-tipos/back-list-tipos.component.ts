@@ -3,15 +3,17 @@ import { Tipo } from '../../../models/tipo';
 import { Router } from '@angular/router';
 import { TiposService } from '../../../service/tipos/tipos.service';
 import { environment } from '../../../../../environments/environment';
+import { TableComponent } from '../../../components/table/table.component';
 
 @Component({
   selector: 'app-back-list-tipos',
-  imports: [],
+  imports: [TableComponent],
   templateUrl: './back-list-tipos.component.html',
   styleUrl: './back-list-tipos.component.css'
 })
 export class BackListTiposComponent implements OnInit{
   tipos: Tipo[] = [];
+  columns: string[] = ['Id', 'Tipo', 'Icono Normal', 'Icono Super', 'Icono Extreme', 'Acciones'];
   urlimage: string = environment.urlimages;
 
   constructor(private tipoService: TiposService, private router: Router) {

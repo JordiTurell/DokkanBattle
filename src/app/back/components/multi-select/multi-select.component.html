@@ -1,0 +1,19 @@
+<div class="relative w-64">
+  <!-- Selector -->
+  <button (click)="toggleDropdown()" class="w-full px-4 py-2 text-left bg-white border rounded-md shadow focus:outline-none">
+    {{ selectedOptions || 'Seleccionar opciones' }}
+    <span class="float-right">▼</span>
+  </button>
+
+  <!-- Dropdown -->
+   @if(showDropdown){
+    <div class="absolute left-0 w-full mt-2 bg-white border rounded-md shadow-lg z-10">
+      @for(option of options; track option.id){
+        <div class="px-4 py-2 flex items-center gap-2 cursor-pointer hover:bg-gray-100">
+          <input type="checkbox" [checked]="option.selected" (change)="toggleSelection(option)" class="w-4 h-4">
+          <label>{{ option.name }}</label>
+        </div>
+      }
+    </div>
+  }
+</div>

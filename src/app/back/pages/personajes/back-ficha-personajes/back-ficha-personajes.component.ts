@@ -18,7 +18,11 @@ export class BackFichaPersonajesComponent implements OnInit{
   formcart!: FormGroup;
   alltipos: Tipo[] = [];
   rutaimagen: string = '';
+  rutanivelcarta:string = ''
+  rutacarta: string = '';
   allnivelcarta: Nivelcarta[] = [];
+  selectedFile!: File;
+  imageView:string | ArrayBuffer | null = null
 
   constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private tiposservice: TiposService, private nivelcarta:NivelCartaService){ 
     this.formcart = this.formBuilder.group({
@@ -41,16 +45,59 @@ export class BackFichaPersonajesComponent implements OnInit{
     })
   }
 
-  onSelectTipo(event:Event){
+  onSelectTipo(event:Event):void{
     const id = (event.target as HTMLSelectElement).value;
     let background = document.getElementById('background-card-icon') as HTMLImageElement;
     this.rutaimagen = environment.urlimages + this.alltipos.find(t => t.id == parseInt(id))?.pathimagen || '';
     background.src = this.rutaimagen;
   }
 
-  onSelectNivel(event:Event){
+  onSelectNivel(event:Event):void{
     const id = (event.target as HTMLSelectElement).value;
-    console.log(id);
+    switch(parseInt(id)){
+      case 1:
+        this.rutanivelcarta = `${environment.urlimages}/level-card/n.webp`;
+        break;
+      case 2:
+        this.rutanivelcarta = `${environment.urlimages}/level-card/r.webp`;
+        break;
+      case 3:
+        this.rutanivelcarta = `${environment.urlimages}/level-card/sr.webp`;
+        break;
+      case 4:
+        this.rutanivelcarta = `${environment.urlimages}/level-card/ssr.webp`;
+        break;
+      case 5:
+        this.rutanivelcarta = `${environment.urlimages}/level-card/ur.webp`;
+        break;
+      case 6:
+        this.rutanivelcarta = `${environment.urlimages}/level-card/lr.webp`;
+        break;
+      default:
+        this.rutanivelcarta = '';
+        break;
+    }
+  }
+
+  onFileSelected(event:Event):void{
+    const input = event.target as HTMLInputElement
+    if(input.files && input.files.length > 0){
+      this.selectedFile = input.files[0]
+      
+      const reader = new FileReader()
+      reader.onload = () => {
+        const img = document.getElementById('imgcard') as HTMLImageElement
+        this.rutacarta = reader.result as string
+        if(img){
+          img.src = this.rutacarta
+          this.imageView = reader.result
+          img.classList.remove('hidden')
+        }else{
+          input.value = ''
+        }
+      }
+      reader.readAsDataURL(this.selectedFile)
+    }
   }
 
   onSubmit(){
