@@ -12,6 +12,7 @@ export class ButtonSubmitComponent {
   @Input()isLoading:boolean = false
 
   onClick(){
+    this.isLoading = !this.isLoading
     this.clicked.emit()
   }
 }

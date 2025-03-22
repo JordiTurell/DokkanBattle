@@ -18,11 +18,13 @@
     "target": "ES2022",
     "module": "ES2022",
     "baseUrl": "./",
+    "useDefineForClassFields": true,
     "paths": {
-      "@anonymus/*": ["src/app/anonymus/*"],
+      "@anonymous/*": ["src/app/anonymous/*"],
       "@core/*": ["src/app/core/*"],
       "@infrastructure/*": ["src/app/infrastructure/*"],
       "@model/*": ["src/app/model/*"],
+      "@environments/*": ["src/environments/*"]
     }
   },
   "angularCompilerOptions": {

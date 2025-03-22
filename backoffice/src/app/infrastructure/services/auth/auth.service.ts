@@ -9,8 +9,6 @@ export class AuthService {
 
   localstoragetoken = environment.token
   
-  constructor() { }
-
   isAuthenticated(token:string):Observable<boolean> {
     return of(true)
   }

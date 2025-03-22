@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../../infrastructure/services/auth/auth.service';
+import { environment } from '@environments/environment';
+import { AuthService } from '@infrastructure/services/auth/auth.service';
 
 @Component({
   selector: 'app-back-toolbar',
@@ -11,16 +10,15 @@ import { AuthService } from '../../../infrastructure/services/auth/auth.service'
   styleUrl: './back-toolbar.component.css'
 })
 export class BackToolbarComponent {
-  @Output() toggleSidebar = new EventEmitter<void>();
+ 
   isProfileOpen = false;
   urlassets = environment.urlimages;
 
-  constructor(private authService: AuthService, private router: Router) {
-
-  }
+  private router: Router = inject(Router);
+  private authService: AuthService = inject(AuthService);
 
   closeSession(){
     this.authService.removeToken();
-    this.router.navigate(['/back/login']);
+    this.router.navigate(['/']);
   }
 }
