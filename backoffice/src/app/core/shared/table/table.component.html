@@ -1,0 +1,63 @@
+<div class="container mt-8">
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead>
+        <tr class="bg-gray-200">
+          @for(column of columnas; track column){
+            <th class="px-4 py-2 border">
+              {{column.title}}
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for(row of data; track row){
+          <tr class="hover:bg-gray-100">
+            @for(column of columnas; track column){
+              @if(column.type == 'acciones'){
+                <td class="px-4 py-2 border text-center w-56">
+                  <div class="flex justify-center space-x-5">
+                    <button class="bg-blue-500 text-white w-25 p-2 cursor-pointer rounded-full hover:bg-blue-700 focus:outline-none" (click)="onEdit(row['id'])">Editar</button>
+                    <button class="bg-red-500 text-white p-2 w-25 cursor-pointer rounded-full hover:bg-red-700 focus:outline-none" (click)="onDelete(row['id'])">Eliminar</button>
+                  </div>                  
+                </td>
+              }@else{
+                <td class="px-4 py-2 border">
+
+                  @if(column.type == 'image'){
+                    @if(row[column.key] != ''){
+                      <img [src]="(urlimage + row[column.key])" alt="{{row[column.title]}}" class="w-16 h-16" />
+                    }
+                  }@else {
+                    {{row[column.key]}}
+                  }
+                </td> 
+              }
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4 space-x-2">
+    <div class="flex justify-start">
+      <span>Mostrando registros del 1 al {{itemsPerPage()}} de un total de {{totalItems()}} registros</span>
+    </div>
+    <div class="flex justify-end space-x-2">
+      <span>Mostrar</span>
+        <select (change)="changeItemsPerPage($event)" class="border border-gray-300 rounded-md mb-1">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25" selected>25</option>
+          <option value="50">50</option>
+          <option value="500">500</option>
+          <option value="1000">1000</option>
+        </select>
+        <span>Registros</span>
+      <button class="rounded-full bg-blue-300 text-white p-1 w-30 hover:bg-blue-500">Anterior</button>
+      <span>Página {{ currentPage() }} de {{ totalPaginas() }}</span>
+      <button class="rounded-full bg-blue-300 text-white p-1 w-30 hover:bg-blue-500">Siguiente</button>
+    </div>    
+  </div>
+</div>

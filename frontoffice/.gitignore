@@ -1,20 +1,13 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
-frontoffice/dist
-frontoffice/tmp
-frontoffice/out-tsc
-frontoffice/bazel-out
-
-backoffice/dist
-backoffice/tmp
-backoffice/out-tsc
-backoffice/bazel-out
+/dist
+/tmp
+/out-tsc
+/bazel-out
 
 # Node
-backoffice/node_modules/*
-frontoffice/node_modules/*
-Api/node_modules/*
+/node_modules
 npm-debug.log
 yarn-error.log
 
