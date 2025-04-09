@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HeadersService } from '../headers/headers.service';
-import { environment } from '../../../../environments/environment';
-import { Responseitem } from '../../models/responseitem';
+
+import { environment } from '@environments/environment';
+import { Responseitem } from '@model/responseitem';
 import { Observable } from 'rxjs';
-import { Icono } from '../../models/icono';
-import { ResponseList } from '../../models/responselist';
+import { Icono } from '@model/icono';
+import { ResponseList } from '@model/responselist';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IconosService {
+  http:HttpClient = inject(HttpClient);
 
-  constructor(private http: HttpClient, private headers: HeadersService) { 
+  constructor() { 
 
   }
 
   updateIcon(formData: FormData): Observable<Responseitem<string>>{
-    let headers: HttpHeaders = this.headers.getheaderUpdateImage()
-    return this.http.post<Responseitem<string>>(`${environment.api}/iconos/update`, formData, { headers: headers })
+    return this.http.post<Responseitem<string>>(`${environment.api}/iconos/update`, formData)
   }
 
   listar(page: number = 1, limit: number = 10): Observable<ResponseList<Icono>> {
@@ -29,12 +29,10 @@ export class IconosService {
       limit: limit
      }
       
-      let header: HttpHeaders = this.headers.getheader();
-      return this.http.post<ResponseList<Icono>>(`${environment.api}/iconos/listar`, responselist, { headers: header });
+      return this.http.post<ResponseList<Icono>>(`${environment.api}/iconos/listar`, responselist);
   }
 
   eliminar(id: number): Observable<Responseitem<string>>{
-    let headers: HttpHeaders = this.headers.getheader()
-    return this.http.delete<Responseitem<string>>(`${environment.api}/iconos/delete/${id}`, { headers: headers })
+    return this.http.delete<Responseitem<string>>(`${environment.api}/iconos/delete/${id}`)
   }
 }

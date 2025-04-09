@@ -6,14 +6,14 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET || "fgjdklsfhjsk|dañ3825@471085901";
 
 export class UsuariosController {
-    async registrarUsuario(req: Request, res: Response) {
+    async registrarUsuario(req: Request, res: Response): Promise<void> {
         try{
             const { email, password, nombre, rol } = req.body;
 
             const usuarioExistente = await Usuario.findOne({ where: { email } });
 
             if (usuarioExistente) {
-                return res.status(400).json({ message: "El usuario ya existe" });
+                res.status(400).json({ message: "El usuario ya existe" });
             }
 
             const salt = await bcrypt.genSalt(10)
@@ -33,7 +33,7 @@ export class UsuariosController {
                 { expiresIn: '24h' }
             );
 
-            return res.status(201).json({
+            res.status(201).json({
                 mensaje: 'Usuario creado exitosamente',
                 token,
                 usuario: {
@@ -44,60 +44,58 @@ export class UsuariosController {
                 }
             });
         }catch(error){
-            return res.status(500).json({ error: 'Error al crear el usuario' });
+            res.status(500).json({ error: 'Error al crear el usuario' });
         }
     }
 
      // Login de usuario
-    async login(req: Request, res: Response) {
+    async login(req: Request, res: Response): Promise<void> {
         try {
             const { email, password } = req.body;
 
             // Buscar usuario
             const usuario = await Usuario.findOne({ where: { email } });
             if (!usuario) {
-                return res.status(400).json({ error: 'Usuario no encontrado' });
-            }
-
-            // Verificar contraseña
-            
-            const passwordValida = await bcrypt.compare(password, usuario.password);
-            console.log(passwordValida)
-            if (!passwordValida) {
-                return res.status(400).json({ error: 'Contraseña incorrecta' });
-            }
-
-            // Generar JWT
-            const token = jwt.sign(
-                { id: usuario.id, email: usuario.email, rol: usuario.rol },
-                JWT_SECRET,
-                { expiresIn: '24h' }
-            );
-
-            return res.status(200).json({
-                status: true,
-                data:{
-                    token: token,
+                res.status(400).json({ error: 'Usuario no encontrado' });
+            }else{
+                // Verificar contraseña                
+                const passwordValida = await bcrypt.compare(password, usuario.password);
+                console.log(passwordValida)
+                if (!passwordValida) {
+                    res.status(400).json({ error: 'Contraseña incorrecta' });
                 }
-            });
+
+                // Generar JWT
+                const token = jwt.sign(
+                    { id: usuario.id, email: usuario.email, rol: usuario.rol },
+                    JWT_SECRET,
+                    { expiresIn: '24h' }
+                );
+
+                res.status(200).json({
+                    status: true,
+                    data:{
+                        token: token,
+                    }
+                });
+            }
         } catch (error) {
             console.log(error)
-            return res.status(500).json({ error: 'Error en el login' });
+            res.status(500).json({ error: 'Error en el login' });
         }
     }
 
-    async getUsuarios(req: Request, res: Response) {
+    async getUsuarios(req: Request, res: Response): Promise<void> {
         try {
-        const usuarios = await Usuario.findAll();
-        return res.status(200).json(usuarios);
+            const usuarios = await Usuario.findAll();
+            res.status(200).json(usuarios);
         } catch (error) {
-        return res.status(500).json({ error: 'Error al obtener los usuarios' });
+            res.status(500).json({ error: 'Error al obtener los usuarios' });
         }
     } 
     
     async deleteUsuario(req: Request, res: Response) {
         try {
-            console.log('holi')
             const { id } = req.body;
             const usuario = await Usuario.findByPk(id);
             if (!usuario) {

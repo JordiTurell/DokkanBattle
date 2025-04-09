@@ -1,69 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { inject, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import { Icono } from '../../../models/icono';
-// import { environment } from '../../../../../environments/environment';
-// import { IconosService } from '../../../service/iconos/iconos.service';
+import { TableComponent } from '@core/shared/table/table.component';
+import { environment } from '@environments/environment';
+import { IconoDto } from '@infrastructure/dto/icono-dto';
+import { IconoVM } from '@infrastructure/vm/iconos-vm';
 
 @Component({
   selector: 'app-lista-iconos',
-  imports: [],
+  imports: [TableComponent],
   templateUrl: './lista-iconos.component.html',
   styleUrl: './lista-iconos.component.css'
 })
 export class ListaIconosComponent implements OnInit {
-  // iconos: Icono[] = []
-  // apiimage: string = environment.urlimages
-  // apiicon: string = environment.urlicon
-  // currentPage = 1;
-  // itemsPerPage = 10;
-  // totalItems = 0;
-  // totalPaginas = 0;
-  // datetime: Date = new Date();
+  iconos: IconoDto[] = []
+  apiimage: string = environment.urlimages
+  apiicon: string = environment.urlicon
+  
+  router: Router = inject(Router);
+  iconosVM: IconoVM = inject(IconoVM);
+  
+  constructor() {
 
-  // constructor(private router: Router, private iconosService: IconosService){
-
-  // }
-
-  ngOnInit(): void {
-  //   this.cargarIconos()
   }
 
-  // cargarIconos(){
-  //   this.iconosService.listar(this.currentPage, this.itemsPerPage).subscribe({
-  //     next:(response) =>{
-  //       this.iconos = response.items
-  //       this.totalItems = response.total
-  //       Math.ceil(this.totalItems / this.itemsPerPage)
-  //     },
-  //     error:(err) => {
+  ngOnInit(): void {
+    this.iconosVM.listado(() => {
+      
+    });
+  }
 
-  //     },
-  //     complete: () => { }
-  //   })
-  // }
+  crear(){
+    this.router.navigate(['/iconos/create'])
+  }
 
-  // crear(){
-  //   this.router.navigate(['/back/iconos/0'])
-  // }
+  onEdit(id:number){
+    this.router.navigate(['/iconos/edit', id])
 
-  // editar(item:Icono){
-
-  // }
-
-  // eliminar(item:Icono){
-  //   this.iconosService.eliminar(item.id).subscribe({
-  //     next:(response) => {
-  //       this.cargarIconos()
-  //     },
-  //     error:(err) => {
-
-  //     },
-  //     complete: () => { }
-  //   })
-  // }
-
-  // onPageChange(page: number) {
-  //   this.currentPage = page;
-  //   this.cargarIconos();
-  // }
+  }
+  onDelete(id:number){
+    this.iconosVM.onDelete(id)
+  }
 }

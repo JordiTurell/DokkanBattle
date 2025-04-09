@@ -1,82 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import { LinksService } from '../../../service/links/links.service';
-// import { Links } from '../../../models/links';
+import { TableComponent } from '@core/shared/table/table.component';
+import { LinksVM } from '@infrastructure/vm/links-vm';
 
 @Component({
   selector: 'app-back-list-links',
-  imports: [],
+  imports: [TableComponent],
   templateUrl: './back-list-links.component.html',
   styleUrl: './back-list-links.component.css'
 })
 export class BackListLinksComponent implements OnInit {
-  // links!: Links[];
-  // currentPage = 1;
-  // itemsPerPage = 10;
-  // totalItems = 0;
-  // totalPaginas = 0;
+  
+  linksvm:LinksVM = inject(LinksVM);
+  router:Router = inject(Router);
 
-  // constructor(private linkService: LinksService, private router: Router) {
+  constructor() {
 
-  // }
-
-  ngOnInit(): void {
-  //   this.listarLinks();
   }
 
-  // listarLinks() {
-  //   this.linkService.listarLinks(this.currentPage, this.itemsPerPage).subscribe({
-  //     next: (response) => {
-  //       this.links = response.items;
-  //       this.totalItems = response.total;
-  //       this.totalPaginas = Math.ceil(this.totalItems / this.itemsPerPage);
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //     },
-  //     complete: () => {
-  //       console.log('completado');
-  //     }
-  //   });
-  // }
+  ngOnInit(): void {
+    this.linksvm.listar(() => {
+      
+    });
+  }
 
-  // nuevoLink() {
-  //   this.router.navigate(['/back/links/0']);
-  // }
+  nuevoLink() {
+    this.router.navigate(['/links/create']);
+  }
 
-  // editar(id: number) {
-  //   this.router.navigate(['/back/links/' + id]);
-  // }
+  onEdit(id: number) {
+    this.router.navigate(['/links/edit', id]);
+  }
 
-  // eliminar(id: number) {
-  //   this.linkService.eliminarLink(id).subscribe({
-  //     next: (response) => {
-  //       this.listarLinks();
-  //     },
-  //     error: (error) => {
-  //       console.log(error);
-  //     },
-  //     complete: () => {
-  //       console.log('Eliminado');
-  //     }
-  //   })
-  // }
+  onDelete(id: number) {
+    this.linksvm.onDelete(id)
+  }
 
-  // verNiveles(id: number) {
-  //   this.router.navigate(['/back/links/niveles/' + id]);
-  // }
-
-  // anterior() {
-  //   if(this.currentPage > 1) {
-  //     this.currentPage--;
-  //     this.listarLinks();
-  //   }
-  // }
-  
-  // siguiente() {
-  //   if(this.currentPage < this.totalPaginas) {
-  //     this.currentPage++;
-  //     this.listarLinks();
-  //   }
-  // }
+  verNiveles(id: number) {
+    this.router.navigate(['/links/niveles/', id]);
+  }
 }

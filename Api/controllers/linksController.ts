@@ -3,7 +3,7 @@ import { Links } from '../models/links';
 import { ResponseList } from '../models/responselist';
 
 export class LinksController {
-  async listar(req: Request, res: Response) {
+  async listar(req: Request, res: Response): Promise<void> {
       try{
         const page = req.body.page || 1;
         const limit = parseInt(req.body.limit as string) || 10;
@@ -29,7 +29,7 @@ export class LinksController {
       }
   }
 
-  async crear(req: Request, res: Response) {
+  async crear(req: Request, res: Response): Promise<void> {
     try{
       const { nombre } = req.body;
       const link = await Links.create({ nombre });
@@ -39,11 +39,11 @@ export class LinksController {
     }
   }
 
-  async actualizar(req: Request, res: Response) {
+  async actualizar(req: Request, res: Response) : Promise<void>{
     try{
       const link = await Links.findByPk(req.params.id);
       if(!link){
-        return res.status(404).json({ error: 'Link no encontrado' });
+        return 
       }
       await link.update(req.body);
       res.json(link);
@@ -52,11 +52,11 @@ export class LinksController {
     }
   }
 
-  async eliminar(req: Request, res: Response) {
+  async eliminar(req: Request, res: Response) : Promise<void>{
     try{
       const link = await Links.findByPk(req.params.id);
       if(!link){
-        return res.status(404).json({ error: 'Link no encontrado' });
+        return
       }
       await link.destroy();
       res.json({ message: 'Link eliminado correctamente' });
@@ -65,11 +65,11 @@ export class LinksController {
     }
   }
 
-  async obtener(req: Request, res: Response) {
+  async obtener(req: Request, res: Response) : Promise<void>{
     try{
       const link = await Links.findByPk(req.params.id);
       if(!link){
-        return res.status(404).json({ error: 'Link no encontrado' });
+        return 
       }
       res.json(link);
     }catch (error){

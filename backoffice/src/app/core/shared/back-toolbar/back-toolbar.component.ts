@@ -19,6 +19,6 @@ export class BackToolbarComponent {
 
   closeSession(){
     this.authService.removeToken();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 }

@@ -3,7 +3,7 @@ import { Tipo } from "../models/tipos";
 import { ResponseList } from "../models/responselist";
 
 export class TiposController {
-    async listar(req: Request, res: Response) {
+    async listar(req: Request, res: Response): Promise<void> {
         try{
           const page = req.body.page || 1;
           const limit = parseInt(req.body.limit as string) || 10;
@@ -30,7 +30,7 @@ export class TiposController {
         }
     }  
     
-    async crear(req: Request, res: Response) {
+    async crear(req: Request, res: Response): Promise<void> {
         try{
           const { nombre, pathimagen } = req.body;
           const tipo = await Tipo.create({ nombre, pathimagen });
@@ -41,11 +41,11 @@ export class TiposController {
         }
     }
 
-    async actualizar(req: Request, res: Response) {
+    async actualizar(req: Request, res: Response): Promise<void> {
       try{
         const tipo = await Tipo.findByPk(req.params.id);
         if(!tipo){
-          return res.status(404).json({ error: 'Tipo no encontrado' });
+          return 
         }
         await tipo.update(req.body);
         res.json(tipo);
@@ -54,11 +54,11 @@ export class TiposController {
       }
     }
     
-    async eliminar(req: Request, res: Response) {
+    async eliminar(req: Request, res: Response): Promise<void> {
       try{
         const tipo = await Tipo.findByPk(req.params.id);
         if(!tipo){
-          return res.status(404).json({ error: 'Tipo no encontrado' });
+          return
         }
         await tipo.destroy();
         res.json({ message: 'Tipo eliminado correctamente' });
@@ -67,11 +67,11 @@ export class TiposController {
       }
     }
 
-    async obtener(req: Request, res: Response) {
+    async obtener(req: Request, res: Response) : Promise<void>{
       try{
         const tipo = await Tipo.findByPk(req.params.id);
         if(!tipo){
-          return res.status(404).json({ error: 'Tipo no encontrado' });
+          return 
         }
         res.json(tipo);
       }catch (error){
@@ -79,7 +79,7 @@ export class TiposController {
       }
     }
 
-    async alllist(req: Request, res: Response) {
+    async alllist(req: Request, res: Response): Promise<void>{
       try{
         const tipos = await Tipo.findAll();
         res.json(tipos);

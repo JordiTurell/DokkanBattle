@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { ResponseList } from '../models/responselist';
 
 export class nivelCartaController {
-   async listar(req: Request, res: Response) {
+   async listar(req: Request, res: Response): Promise<void> {
       try{
         const page = req.body.page || 1;
         const limit = parseInt(req.body.limit as string) || 10;
@@ -29,7 +29,7 @@ export class nivelCartaController {
       }
   }
 
-  async listarAll(req: Request, res: Response) {
+  async listarAll(req: Request, res: Response) : Promise<void>{
     try{
       const nivelcarta = await nivelCarta.findAll();
       res.json(nivelcarta);
@@ -38,7 +38,7 @@ export class nivelCartaController {
     }
   }
 
-  async crear(req: Request, res: Response) {
+  async crear(req: Request, res: Response): Promise<void> {
     try{
       const { nombre } = req.body;
       console.log(req.body)
@@ -50,11 +50,11 @@ export class nivelCartaController {
     }
   }
 
-  async actualizar(req: Request, res: Response) {
+  async actualizar(req: Request, res: Response): Promise<void> {
     try{
       const link = await nivelCarta.findByPk(req.params.id);
       if(!link){
-        return res.status(404).json({ error: 'Link no encontrado' });
+        return 
       }
       await link.update(req.body);
       res.json(link);
@@ -63,11 +63,11 @@ export class nivelCartaController {
     }
   }
 
-  async eliminar(req: Request, res: Response) {
+  async eliminar(req: Request, res: Response): Promise<void> {
     try{
       const link = await nivelCarta.findByPk(req.params.id);
       if(!link){
-        return res.status(404).json({ error: 'Link no encontrado' });
+        return 
       }
       await link.destroy();
       res.json({ message: 'Link eliminado correctamente' });
@@ -76,11 +76,11 @@ export class nivelCartaController {
     }
   }
 
-  async obtener(req: Request, res: Response) {
+  async obtener(req: Request, res: Response): Promise<void> {
     try{
       const link = await nivelCarta.findByPk(req.params.id);
       if(!link){
-        return res.status(404).json({ error: 'Link no encontrado' });
+        return
       }
       res.json(link);
     }catch (error){

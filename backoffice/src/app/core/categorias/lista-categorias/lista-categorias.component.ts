@@ -1,67 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-// import { Categoria } from '../../../models/categoria';
-// import { CategoriasService } from '../../../service/categorias/categorias.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TableComponent } from '@core/shared/table/table.component';
+import { CategoriasDto } from '@infrastructure/dto/categoria-dto';
+import { CategoriasVM } from '@infrastructure/vm/categorias-vm';
 
 @Component({
   selector: 'app-lista-categorias',
-  imports: [],
+  imports: [TableComponent],
   templateUrl: './lista-categorias.component.html',
   styleUrl: './lista-categorias.component.css'
 })
 export class ListaCategoriasComponent implements OnInit {
-  // categorias: Categoria[] = [];
-  // currentPage = 1;
-  // itemsPerPage = 10;
-  // totalItems = 0;
-  // totalPaginas = 0;
+  router: Router = inject(Router);
+  categoriasvm: CategoriasVM = inject(CategoriasVM);
+  listado: CategoriasDto[] = [] as CategoriasDto[];
+  constructor(){
 
-  // constructor(private categoriasService: CategoriasService, private router: Router) {
-
-  // }
-
-  ngOnInit(): void {
-  //   this.cargarCategorias();
   }
 
-  // cargarCategorias() {
-  //   this.categoriasService.listarCategorias(this.currentPage, this.itemsPerPage)
-  //     .subscribe({
-  //       next: (response) => {
-  //         this.categorias = response.items;
-  //         this.totalItems = response.total;
-  //         Math.ceil(this.totalItems / this.itemsPerPage)
-          
-  //       },
-  //       error: (error) => {
-  //         console.error('Error al cargar categorías:', error);
-  //       }
-  //     });
-  // }
+  ngOnInit(): void {
+    this.categoriasvm.cargarCategorias(() => {
+      this.listado = this.categoriasvm.list;
+    });
+  }
 
-  // onPageChange(page: number) {
-  //   this.currentPage = page;
-  //   this.cargarCategorias();
-  // }
+  
+  onPageChange(page: number) {
+    this.categoriasvm.onPageChange(page);
+  }
 
-  // crear() {
-  //   this.router.navigate(['/back/categorias/0']);
-  // }
+  crear() {
+    this.router.navigate(['/categorias/edit', 0]);
+  }
 
-  // editar(item: any) {
-  //   this.router.navigate([`/back/categorias/${item.id}`]);
-  // }
+  onEdit(id:number) {
+    this.router.navigate([`/categorias/edit`, id]);
+  }
 
-  // eliminar(item: any) {
-  //   this.categoriasService.deleteCategoria(item.id).subscribe({
-  //     next: (response) => {
-  //       this.categorias = this.categorias.filter(c => c.id !== item.id);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //     complete: () => {
-  //     }
-  //   })
-  // }
+  onDelete(id:number) {
+    this.categoriasvm.onDelete(id);
+  }
 }

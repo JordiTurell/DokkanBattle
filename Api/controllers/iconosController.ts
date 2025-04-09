@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { Iconos } from '../models/iconos'
+import { Multer } from "multer";
 import { ResponseList } from "../models/responselist";
 
 import * as fs from "fs";
 import * as path from "path";
 
 export class IconosController{
-  async listar(req: Request, res: Response) {
+  async listar(req: Request, res: Response): Promise<void> {
     try {
       console.log(req.body)
       const page = req.body.page || 1;
@@ -37,7 +38,7 @@ export class IconosController{
     }
   }
 
-  async update(req: Request, res: Response){
+  async update(req: Request, res: Response): Promise<void>{
     const file: Express.Multer.File | undefined = req.file;
     if(!file){
       console.log('No se ha enviado el archivo');
@@ -49,7 +50,7 @@ export class IconosController{
     res.status(200).json({message: 'Icono subido correctamente'});
   }
 
-  async delete(req: Request, res: Response){
+  async delete(req: Request, res: Response): Promise<void>{
     const id = req.params.id;
     const icon = await Iconos.findByPk(id);
     if (icon) {

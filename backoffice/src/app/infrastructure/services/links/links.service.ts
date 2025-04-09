@@ -1,44 +1,44 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { HeadersService } from '../headers/headers.service';
-import { ResponseList } from '../../models/responselist';
-import { Links } from '../../models/links';
-import { environment } from '../../../../environments/environment';
+import { inject, Injectable } from '@angular/core';
+
+import { ResponseList } from '@model/responselist';
+import { Links } from '@model/links';
+import { LinksDTO } from '@infrastructure/dto/links-dto';
+import { LinkDescripcionDTO } from '@infrastructure/dto/link-descripcion-dto';
+import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LinksService {
+  private http:HttpClient = inject(HttpClient);
 
-  constructor(private http: HttpClient, private headers: HeadersService) { }
+  constructor() { 
+
+  }
 
   listarLinks(page: number, size: number): Observable<ResponseList<Links>>{
-    let headers = this.headers.getheader();
     const req = {
       page: page,
       size: size
     }
-    return this.http.post<ResponseList<Links>>(`${environment.api}/links/listar`, req, { headers: headers });
+    return this.http.post<ResponseList<Links>>(`${environment.api}/links/listar`, req);
   }
 
-  nuevoLink(link: Links): Observable<Links>{
-    let headers = this.headers.getheader();
-    return this.http.post<Links>(`${environment.api}/links/crear`, link, { headers: headers });
+  nuevoLink(link: LinksDTO): Observable<Links>{
+    return this.http.post<Links>(`${environment.api}/links/crear`, link);
   }
 
-  editarLink(link: Links): Observable<Links>{
-    let headers = this.headers.getheader();
-    return this.http.put  <Links>(`${environment.api}/links/actualizar/${link.id}`, link, { headers: headers });
+  editarLink(link: LinksDTO): Observable<Links>{
+    return this.http.put  <Links>(`${environment.api}/links/actualizar/${link.id}`, link);
   }
 
   eliminarLink(id: number): Observable<Links>{
-    let headers = this.headers.getheader();
-    return this.http.delete<Links>(`${environment.api}/links/eliminar/${id}`, { headers: headers });
+    return this.http.delete<Links>(`${environment.api}/links/eliminar/${id}`);
   }
 
   obtenerLink(id: number): Observable<Links>{
-    let headers = this.headers.getheader();
-    return this.http.get<Links>(`${environment.api}/links/obtener/${id}`, { headers: headers });
+    return this.http.get<Links>(`${environment.api}/links/obtener/${id}`);
   }
 }

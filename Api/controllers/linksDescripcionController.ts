@@ -3,7 +3,7 @@ import { LinkDescripcion } from '../models/linkdescripcion';
 import { ResponseList } from '../models/responselist';
 
 export class LinksDescripcionController {
-  async listar(req: Request, res: Response) {
+  async listar(req: Request, res: Response) : Promise<void>{
     try{
       const page = req.body.page || 1;
       const limit = parseInt(req.body.limit as string) || 10;
@@ -31,7 +31,7 @@ export class LinksDescripcionController {
     }
   }
 
-  async crear(req: Request, res: Response) {
+  async crear(req: Request, res: Response) : Promise<void>{
     try{
       const { descripcion, idlink } = req.body
       
@@ -43,11 +43,11 @@ export class LinksDescripcionController {
     }
   }
 
-  async actualizar(req: Request, res: Response) {
+  async actualizar(req: Request, res: Response): Promise<void> {
     try{
       const linkDescripcion = await LinkDescripcion.findByPk(req.params.id);
       if(!linkDescripcion){
-        return res.status(404).json({ error: 'Link de descripcion no encontrado' });
+        return 
       }
       await linkDescripcion.update(req.body);
       res.json(linkDescripcion);
@@ -56,11 +56,11 @@ export class LinksDescripcionController {
     }
   }
 
-  async eliminar(req: Request, res: Response) {
+  async eliminar(req: Request, res: Response): Promise<void> {
     try{
       const linkDescripcion = await LinkDescripcion.findByPk(req.params.id);
       if(!linkDescripcion){
-        return res.status(404).json({ error: 'Link de descripcion no encontrado' });
+        return 
       }
       await linkDescripcion.destroy();
     }catch(error){
@@ -68,11 +68,11 @@ export class LinksDescripcionController {
     }
   }
 
-  async obtener(req: Request, res: Response) {
+  async obtener(req: Request, res: Response): Promise<void> {
     try{
       const linkDescripcion = await LinkDescripcion.findByPk(req.params.id);
       if(!linkDescripcion){
-        return res.status(404).json({ error: 'Link de descripcion no encontrado' });
+        return 
       }
       res.json(linkDescripcion);
     }catch(error){

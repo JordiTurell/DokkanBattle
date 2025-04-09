@@ -28,6 +28,10 @@
                     @if(row[column.key] != ''){
                       <img [src]="(urlimage + row[column.key])" alt="{{row[column.title]}}" class="w-16 h-16" />
                     }
+                  }@else if (column.type == 'icono') {
+                    @if(row[column.key] != ''){
+                      <img [src]="(apiicon +'/'+ row[column.key])" alt="{{row[column.title]}}" class="w-10 h-auto" />
+                    }
                   }@else {
                     {{row[column.key]}}
                   }

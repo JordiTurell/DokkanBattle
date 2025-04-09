@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HeadersService } from '../headers/headers.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ResponseList } from '../../models/responselist';
-import { environment } from '../../../../environments/environment';
-import { Tipo } from '../../models/tipo';
+import { ResponseList } from '@model/responselist';
+import { environment } from '@environments/environment';
+import { Tipo } from '@model/tipo';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,13 +11,12 @@ import { Observable } from 'rxjs';
 })
 export class TiposService {
 
-  constructor(private http: HttpClient, private headers: HeadersService) { 
+  constructor(private http: HttpClient) { 
 
   }
 
   listarAllTipos(): Observable<Tipo[]> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.get<Tipo[]>(`${environment.api}/tipos/alllist`, { headers: header });
+    return this.http.get<Tipo[]>(`${environment.api}/tipos/alllist`);
   }
 
   listarTipos(page: number = 1, limit: number = 10): Observable<ResponseList<Tipo>> {
@@ -27,27 +26,23 @@ export class TiposService {
       page: page,
       limit: limit
      }
-     let header: HttpHeaders = this.headers.getheader();
-     return this.http.post<ResponseList<Tipo>>(`${environment.api}/tipos/listar`, responselist, { headers: header });
+     
+     return this.http.post<ResponseList<Tipo>>(`${environment.api}/tipos/listar`, responselist);
   }
 
   crearTipo(tipo: Tipo): Observable<Tipo> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.post<Tipo>(`${environment.api}/tipos/crear`, tipo, { headers: header });
+    return this.http.post<Tipo>(`${environment.api}/tipos/crear`, tipo);
   }
   
   actualizarTipo(tipo: Tipo): Observable<Tipo> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.put<Tipo>(`${environment.api}/tipos/actualizar`, tipo, { headers: header });
+    return this.http.put<Tipo>(`${environment.api}/tipos/actualizar`, tipo);
   }
 
   eliminarTipo(id: number): Observable<void> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.delete<void>(`${environment.api}/tipos/eliminar/${id}`, { headers: header });
+    return this.http.delete<void>(`${environment.api}/tipos/eliminar/${id}`);
   }
 
   obtenerTipo(id: number): Observable<Tipo> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.get<Tipo>(`${environment.api}/tipos/obtener/${id}`, { headers: header });
+    return this.http.get<Tipo>(`${environment.api}/tipos/obtener/${id}`);
   }
 }

@@ -6,7 +6,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 export class PersonajesController {
-  async update(req: Request, res: Response) {
+  async update(req: Request, res: Response): Promise<void> {
     const file: Express.Multer.File | undefined = req.file;
     if(!file){
       console.log('No se ha enviado el archivo');

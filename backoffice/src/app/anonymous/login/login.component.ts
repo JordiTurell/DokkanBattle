@@ -3,13 +3,8 @@ import { ButtonSubmitComponent } from '@core/shared/button-submit/button-submit.
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { environment } from '@environments/environment';
-import { LoginViewModel } from '@infrastructure/repository/login-view-model';
-import { LoginService } from '@infrastructure/services/login/login.service';
-import { AuthService } from '@infrastructure/services/auth/auth.service';
-import { Router } from '@angular/router';
-import { Responseitem } from '@model/responseitem';
-import { Token } from '@model/token';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { Route, Router } from '@angular/router';
+import { LoginViewModel } from '@infrastructure/vm/login-vm';
 
 
 @Component({
@@ -22,9 +17,8 @@ import { rxResource } from '@angular/core/rxjs-interop';
 export class LoginComponent {
   urlimages = environment.urlimages;
   loginForm: FormGroup;
-  private loginservice: LoginService = inject(LoginService);
-  private authService: AuthService = inject(AuthService);
-  private router: Router = inject(Router);
+  public router:Router = inject(Router);
+  public loginViewModel: LoginViewModel = inject(LoginViewModel);
   
   constructor(private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
@@ -34,18 +28,9 @@ export class LoginComponent {
   }
 
   onSubmit() {
-  //   this.isLoading = true
     if (this.loginForm.valid) {
-      const formData: LoginViewModel = this.loginForm.value;
-
-      this.loginservice.login(formData).subscribe((response: Responseitem<Token>) => {
-        if (response) {
-          if(response.status) {
-            this.authService.setToken(response.data.token);
-            this.router.navigate(['/']);
-          }
-        }
-      });
+      this.loginViewModel.logindto = this.loginForm.value;
+      this.loginViewModel.login(()=>this.router.navigate(['/']))
     }
   }
 }

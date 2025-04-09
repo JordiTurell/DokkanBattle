@@ -14,6 +14,7 @@ export class TableComponent {
   @Input() data: any[] = [];
   itemsPerPage = signal(25);
   urlimage: string = environment.urlimages;
+  apiicon: string = environment.urlicon;
 
   // Signals para la paginación
   currentPage = signal(1);

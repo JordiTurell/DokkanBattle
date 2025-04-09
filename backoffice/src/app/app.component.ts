@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LoadingService } from '@infrastructure/services/loading/loading.service';
 import { NgxSonnerToaster } from 'ngx-sonner';
 @Component({
   selector: 'app-root',
@@ -9,4 +10,8 @@ import { NgxSonnerToaster } from 'ngx-sonner';
 })
 export class AppComponent {
   title = 'DokanBattle';
+  loadingService: LoadingService = inject(LoadingService);
+  
+  isLoading = this.loadingService.loading$;
+
 }

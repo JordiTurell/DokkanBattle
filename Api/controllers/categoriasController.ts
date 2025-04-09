@@ -11,7 +11,7 @@ export class CategoriasController {
       res.status(201).json(categoria);
   }
 
-  async listar(req: Request, res: Response) {
+  async listar(req: Request, res: Response): Promise<void> {
     try {
       const page = req.body.page || 1;
       const limit = parseInt(req.body.limit as string) || 10;
@@ -40,21 +40,21 @@ export class CategoriasController {
     }
   }
 
-  async obtenerCategorias(req: Request, res: Response) {
+  async obtenerCategorias(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
       const categoria = await Categoria.findByPk(id);
 
       res.status(200).json(categoria);
   }
   
-  async actualizarCategoria(req: Request, res: Response) {
+  async actualizarCategoria(req: Request, res: Response) : Promise<void>{
       const { id } = req.params;
       const { nombre } = req.body;
 
       const categoria = await Categoria.findByPk(id);
 
-      if (!categoria) {
-          return res.status(404).json({ message: "Categoria no encontrada" });
+      if (categoria === null) {
+        return
       }
 
       categoria.nombre = nombre;
@@ -63,13 +63,13 @@ export class CategoriasController {
       res.status(200).json(categoria);
   }
 
-  async eliminarCategoria(req: Request, res: Response) {
+  async eliminarCategoria(req: Request, res: Response) : Promise<void>{
     const { id } = req.params;
 
     const categoria = await Categoria.findByPk(id);
 
     if (!categoria) {
-        return res.status(404).json({ message: "Categoria no encontrada" });
+        return
     }else{
       await categoria.destroy();
       res.status(200).json({ message: "Categoria eliminada correctamente" });

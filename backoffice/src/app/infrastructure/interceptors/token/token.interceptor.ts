@@ -1,13 +1,17 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { environment } from '@environments/environment';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
-  const newReq = req.clone({
+  const token = localStorage.getItem(environment.token);
+  let newReq = req.clone({
     headers: req.headers.append('Content-Type', 'application/json')
-                        .append('Authorization', `Bearer ${localStorage.getItem('token')}`)                        
   });
-  if(req.url.includes('login')){
-    newReq.headers.delete('Authorization');   
+
+  if (token && !req.url.includes('login')) {
+    newReq = newReq.clone({
+      headers: newReq.headers.append('Authorization', `Bearer ${token}`)
+    });
   }
-  return next(newReq)
+
+  return next(newReq);
 };

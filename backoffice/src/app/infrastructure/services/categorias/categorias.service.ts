@@ -1,38 +1,37 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HeadersService } from '../headers/headers.service';
-import { environment } from '../../../../environments/environment';
-import { Categoria } from '../../models/categoria';
-import { ResponseList } from '../../models/responselist';
+
+import { environment } from '@environments/environment';
+import { Categoria } from '@model/categoria';
+import { ResponseList } from '@model/responselist';
+import { CategoriasDto } from '@infrastructure/dto/categoria-dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriasService {
-
-  constructor(private http: HttpClient, private headers: HeadersService) { 
+  http: HttpClient = inject(HttpClient);
+  constructor() { 
 
   }
 
-  obtenerCategoria(id: number): Observable<Categoria> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.get<Categoria>(`${environment.api}/categorias/getcat/${id}`, { headers: header });
+  obtenerCategoria(id: number): Observable<CategoriasDto> {
+    return this.http.get<CategoriasDto>(`${environment.api}/categorias/getcat/${id}`);
   }
 
-  createCategoria(categoria: Categoria): Observable<Categoria> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.post<Categoria>(`${environment.api}/categorias/crear`, categoria, { headers: header });
+  createCategoria(categoria: CategoriasDto): Observable<Categoria> {
+    return this.http.post<CategoriasDto>(`${environment.api}/categorias/crear`, categoria);
   }
   
-  updateCategoria(categoria: Categoria): Observable<Categoria> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.put<Categoria>(`${environment.api}/categorias/actualizar/${categoria.id}`, categoria, { headers: header });
+  updateCategoria(categoria: CategoriasDto): Observable<Categoria> {
+    
+    return this.http.put<CategoriasDto>(`${environment.api}/categorias/editar/${categoria.id}`, categoria);
   }
 
   deleteCategoria(id: number): Observable<void> {
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.delete<void>(`${environment.api}/categorias/eliminar/${id}`, { headers: header });
+    
+    return this.http.delete<void>(`${environment.api}/categorias/eliminar/${id}`);
   }
 
   listarCategorias(page: number = 1, limit: number = 10): Observable<ResponseList<Categoria>> {
@@ -43,7 +42,7 @@ export class CategoriasService {
     limit: limit
    }
     
-    let header: HttpHeaders = this.headers.getheader();
-    return this.http.post<ResponseList<Categoria>>(`${environment.api}/categorias/listar`, responselist, { headers: header });
+    
+    return this.http.post<ResponseList<Categoria>>(`${environment.api}/categorias/listar`, responselist);
   }
 }

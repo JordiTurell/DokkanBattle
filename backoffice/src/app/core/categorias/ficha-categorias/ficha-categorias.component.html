@@ -1,4 +1,4 @@
-<!-- <h1 class="text-2xl font-bold">
+<h1 class="text-2xl font-bold">
     {{isedit ? "Editar Categoria" : "Crear Categoria"}}
 </h1>
 <form [formGroup]="formCategoria" class="mt-8 space-y-6">
@@ -6,7 +6,7 @@
         <label for="nombre" class="block text-gray-700">Nombre</label>
         <input type="text" formControlName="nombre" class="mt-1 p-2 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
     </div>
-    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-md" (click)="onSubmit()">
+    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer" (click)="onSubmit()">
         {{isedit ? "Editar" : "Crear"}}
     </button>
-</form> -->
+</form>
