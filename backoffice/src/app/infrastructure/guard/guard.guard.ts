@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
@@ -9,7 +9,10 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class AuthGuard {
 
-    constructor(private authService: AuthService, private router:Router){
+    authService: AuthService = inject(AuthService);
+    router: Router = inject(Router);
+
+    constructor(){
 
     }
 

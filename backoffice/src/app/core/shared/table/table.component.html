@@ -17,7 +17,11 @@
               @if(column.type == 'acciones'){
                 <td class="px-4 py-2 border text-center w-56">
                   <div class="flex justify-center space-x-5">
+                    @if(column.details){
+                      <button class="bg-blue-500 text-white w-25 p-2 cursor-pointer rounded-full hover:bg-blue-700 focus:outline-none" (click)="onDetall(row['id'])">Detalle</button>
+                    }
                     <button class="bg-blue-500 text-white w-25 p-2 cursor-pointer rounded-full hover:bg-blue-700 focus:outline-none" (click)="onEdit(row['id'])">Editar</button>
+
                     <button class="bg-red-500 text-white p-2 w-25 cursor-pointer rounded-full hover:bg-red-700 focus:outline-none" (click)="onDelete(row['id'])">Eliminar</button>
                   </div>                  
                 </td>

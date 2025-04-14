@@ -20,7 +20,7 @@ export class LinksVM{
 
   public columns: any[] = [ 
     { title:'Link', key: 'nombre', type: null },
-    { title: 'Acciones', key: '', type: 'acciones'}
+    { title: 'Acciones', key: '', type: 'acciones', details: true}
   ];
 
   private linkService:LinksService = inject(LinksService);
@@ -100,6 +100,8 @@ export class LinksVM{
       
     });
   }
+
+  
 
   onDelete(id:number){
     this.linkService.eliminarLink(id).subscribe({

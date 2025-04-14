@@ -24,6 +24,7 @@ export class TableComponent {
   @Output() btnedit: EventEmitter<number> = new EventEmitter<number>();
   @Output() btndelete: EventEmitter<number> = new EventEmitter<number>();
   @Output() clickpagina: EventEmitter<number> = new EventEmitter<number>();
+  @Output() btndetall: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(){
     effect(() => {
@@ -37,6 +38,10 @@ export class TableComponent {
 
   onEdit(id: number) {
     this.btnedit.emit(id)
+  }
+
+  onDetall(id:number){
+    this.btndetall.emit(id)
   }
 
   onDelete(id: number) {
