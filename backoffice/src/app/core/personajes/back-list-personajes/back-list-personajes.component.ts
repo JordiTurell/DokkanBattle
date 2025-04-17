@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-// import { Personaje } from '../../../models/personaje';
-// import { PersonajeService } from '../../../service/personaje/personaje.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,47 +8,21 @@ import { Router } from '@angular/router';
   styleUrl: './back-list-personajes.component.css'
 })
 export class BackListPersonajesComponent implements OnInit{
-  // personajes: Personaje[] = [];
-  // currentPage = 1;
-  // itemsPerPage = 10;
-  // totalItems = 0;
-  // totalPages = 0;
+  router: Router = inject(Router);
 
-  // constructor(private personajesService: PersonajeService, private router: Router) {
+  constructor() {
 
-  // }
-
-  ngOnInit(): void {
-  //   this.cargarPersonajes();
   }
 
-  // cargarPersonajes() {
-  //   this.personajesService.listarPersonajes(this.currentPage, this.itemsPerPage)
-  //     .subscribe({
-  //       next: (response) => {
-  //         this.personajes = response.items;
-  //         this.totalItems = response.total;
-  //       },
-  //       error: (error) => {
-  //         console.log(error);
-  //       }
-  //     });
-  // }
+  ngOnInit(): void {
+  
+  }
 
-  // onPageChange(page: number) {
-  //   this.currentPage = page;
-  //   this.cargarPersonajes();
-  // }
+  crear() {
+    this.router.navigate(['/personajes/create']);
+  }
 
-  // crear() {
-  //   this.router.navigate(['/back/personajes/0']);
-  // }
-
-  // editar(item: any) {
-  //   this.router.navigate([`/back/personajes/${item.id}`]);
-  // }
-
-  // eliminar(item: any) {
-    
-  // }
+  onEdit(id: number) {
+    this.router.navigate(['/personajes/edit', id]);
+  }
 }

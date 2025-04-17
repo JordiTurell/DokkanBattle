@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Usuario } from "../models/usuario";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { verificarToken } from '../middleware/auth';
 
 const JWT_SECRET = process.env.JWT_SECRET || "fgjdklsfhjsk|dañ3825@471085901";
 
@@ -105,6 +106,24 @@ export class UsuariosController {
             return res.status(200).json({ message: 'Usuario eliminado correctamente' });
         } catch (error) {
             return res.status(500).json({ error: 'Error al eliminar el usuario' });
+        }
+    }
+
+    async verificarToken(req: Request, res: Response): Promise<void> {
+        try {
+            const token = req.headers['authorization']?.split(' ')[1] || '';
+            if (!token) {
+                res.status(401).json({ error: 'Token no proporcionado' });
+            }
+
+            jwt.verify(token, JWT_SECRET, (err, decoded) => {
+                if (err) {
+                    res.status(401).json({ error: 'Token inválido' });
+                }
+                res.status(200).json({ message: 'Token válido', decoded });
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Error al verificar el token' });
         }
     }
 }

@@ -18,22 +18,23 @@ export class TableComponent {
 
   // Signals para la paginación
   currentPage = signal(1);
-  totalItems = computed(() => this.data.length);
-  totalPaginas = signal(0);
+  @Input() totalItems :number = 0;
+  @Input() totalPaginas :number = 0;
+
 
   @Output() btnedit: EventEmitter<number> = new EventEmitter<number>();
   @Output() btndelete: EventEmitter<number> = new EventEmitter<number>();
   @Output() clickpagina: EventEmitter<number> = new EventEmitter<number>();
   @Output() btndetall: EventEmitter<number> = new EventEmitter<number>();
+  @Output() changeItemsPerPage: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(){
-    effect(() => {
-      this.totalPaginas.set(Math.ceil(this.data.length / this.itemsPerPage()));
-    });
+    
   }
 
-  changeItemsPerPage(event:Event){
+  onChangeItemsPerPage(event:Event){
     this.itemsPerPage.set(parseInt((event.target as HTMLInputElement).value));
+    this.changeItemsPerPage.emit(this.itemsPerPage())
   }
 
   onEdit(id: number) {
@@ -48,7 +49,17 @@ export class TableComponent {
     this.btndelete.emit(id)
   }
 
-  onClickpagina(id:number){
-    this.clickpagina.emit(id)
+  onNextPage() {
+    if (this.currentPage() < this.totalPaginas) {
+      this.currentPage.set(this.currentPage() + 1);
+      this.clickpagina.emit(this.currentPage());
+    }
+  }
+  
+  onPreviousPage() {
+    if (this.currentPage() > 1) {
+      this.currentPage.set(this.currentPage() - 1);
+      this.clickpagina.emit(this.currentPage());
+    }
   }
 }

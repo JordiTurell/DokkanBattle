@@ -40,4 +40,18 @@ export class ListaIconosComponent implements OnInit {
   onDelete(id:number){
     this.iconosVM.onDelete(id)
   }
+
+  onChangeItemsPerPage(items:number) {
+    this.iconosVM.itemsPerPage = items;
+    this.iconosVM.onChangeItemsPerPage(() => {
+      this.iconosVM.listado(() => { });
+    });
+  }
+
+  onClickPagina(pagina:number){
+    this.iconosVM.currentPage = pagina;
+    this.iconosVM.onClickPagina(() => {
+      this.iconosVM.listado(() => { });
+    });
+  }
 }

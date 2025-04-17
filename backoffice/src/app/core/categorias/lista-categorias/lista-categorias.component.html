@@ -4,5 +4,5 @@
 </div>
 
 @if(categoriasvm.list.length > 0){
-  <app-table [columnas]="categoriasvm.columns" [data]="categoriasvm.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)"></app-table>
+  <app-table [columnas]="categoriasvm.columns" [data]="categoriasvm.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)" (changeItemsPerPage)="onChangeItemsPerPage($event)" (clickpagina)="onClickPagina($event)" [totalItems]="categoriasvm.totalItems" [totalPaginas]="categoriasvm.totalPaginas"></app-table>
 }

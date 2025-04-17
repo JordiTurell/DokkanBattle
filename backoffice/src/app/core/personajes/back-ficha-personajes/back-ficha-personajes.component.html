@@ -1,11 +1,11 @@
-<!-- <h1 class="text-2xl font-bold">
-  {{isedit ? "Editar Link" : "Crear Link"}}
-</h1> -->
+<h1 class="text-2xl font-bold">
+  {{isedit ? "Editar Personaje" : "Crear Personaje"}}
+</h1>
 
-<!-- <form [formGroup]="formcart"class="mt-8 space-y-6 grid grid-cols-1 md:grid-cols-2 gap-6"> -->
+<form [formGroup]="formcart"class="mt-8 space-y-6 grid grid-cols-1 md:grid-cols-2 gap-6">
   <!-- Primera columna -->
   <div class="space-y-4">
-    <!-- @if(rutaimagen != ''){
+    @if(rutaimagen != ''){
       <div class="col card-icon unselectable">
         <div class="card-icon-item card-icon-item-base card-info-base">
           <img id="background-card-icon" [src]="rutaimagen" alt="background" class="h-[120px]" />
@@ -18,14 +18,14 @@
           <img id="imgcard" [src]="" height="72" alt="rarity" class="hidden h-[160px] -mt-[25px] -ml-[20px]" />
         </div>
         
-        @if(rutanivelcarta != ''){
+        <!-- @if(rutanivelcarta != ''){
           <div class="card-icon-item mt-[80px] -ml-2 z-3">
             <img [src]="rutanivelcarta" height="72" alt="rarity">
           </div>
-        }
+        } -->
       </div>
-    } -->
-    <!-- <div>
+    } 
+    <div>
       <label class="block text-sm font-medium text-gray-700">Imagen carta</label>
       <input id="imgcardfileinput" class="cursor-pointer w-1/2 border-2 m-2" type="file" (change)="onFileSelected($event)" />
     </div>
@@ -33,38 +33,38 @@
       <label class="block text-sm font-medium text-gray-700">Habilidad de Líder</label>
       <input type="text" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" placeholder="Habilidad de Líder" formControlName="habilidadlider" />
     </div>
-  </div> -->
+  </div>
 
   <!-- Segunda columna -->
-  <!-- <div class="space-y-4">
+  <div class="space-y-4">
     <div>
       <label class="block text-sm font-medium text-gray-700">Tipo de carta</label>
       <select id="combotipos" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" (change)="onSelectTipo($event)">
         <option value="0">Selecciona un tipo</option>
-        @for(tipo of alltipos; track tipo.id){
+        <!-- @for(tipo of alltipos; track tipo.id){
           <option value="{{tipo.id}}">{{tipo.nombre}}</option>
-        }
+        } -->
       </select>
     </div>
     <div>
       <label class="block text-sm font-medium text-gray-700">Nivel de carta</label>
       <select id="combo-nivel-carta" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" (change)="onSelectNivel($event)">
         <option value="0">Selecciona un nivel</option>
-        @for(nivelcarta of allnivelcarta; track nivelcarta.id){
+        <!-- @for(nivelcarta of allnivelcarta; track nivelcarta.id){
           <option value="{{nivelcarta.id}}">{{nivelcarta.nombre}}</option>
-        }
+        } -->
       </select>
     </div>
     <div>
       <label class="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
       <input type="date" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200">
     </div>
-  </div> -->
+  </div> 
 
   <!-- Botón enviar, ocupa ambas columnas -->
-  <!-- <div class="md:col-span-2 flex justify-end">
+  <div class="md:col-span-2 flex justify-end">
     <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-md" (click)="onSubmit()">
       {{isedit ? "Editar" : "Crear"}}
     </button>
-  </div> -->
-<!-- </form> -->
+  </div> 
+</form>

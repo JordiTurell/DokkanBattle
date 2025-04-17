@@ -24,11 +24,6 @@ export class ListaCategoriasComponent implements OnInit {
     });
   }
 
-  
-  onPageChange(page: number) {
-    this.categoriasvm.onPageChange(page);
-  }
-
   crear() {
     this.router.navigate(['/categorias/edit', 0]);
   }
@@ -39,5 +34,19 @@ export class ListaCategoriasComponent implements OnInit {
 
   onDelete(id:number) {
     this.categoriasvm.onDelete(id);
+  }
+
+  onChangeItemsPerPage(items:number) {
+    this.categoriasvm.itemsPerPage = items;
+    this.categoriasvm.onChangeItemsPerPage(() => {
+      this.categoriasvm.cargarCategorias(() => { });
+    });
+  }
+
+  onClickPagina(pagina:number){
+    this.categoriasvm.currentPage = pagina;
+    this.categoriasvm.onClickPagina(() => {
+      this.categoriasvm.cargarCategorias(() => { });
+    });
   }
 }

@@ -27,7 +27,6 @@ export class BackListTiposComponent implements OnInit{ //, FunctionsTable, Pagin
   ngOnInit(): void {
     this.tipoVM.listado(() => {  
         this.tipos = this.tipoVM.list;
-        console.log(this.tipos);      
     });
   }
 
@@ -42,5 +41,19 @@ export class BackListTiposComponent implements OnInit{ //, FunctionsTable, Pagin
   onDelete(id:number) 
   {
     this.tipoVM.onDelete(id);
+  }
+
+  onChangeItemsPerPage(items:number) {
+    this.tipoVM.itemsPerPage = items;
+    this.tipoVM.onChangeItemsPerPage(() => {
+      this.tipoVM.listado(() => { });
+    });
+  }
+
+  onClickPagina(pagina:number){
+    this.tipoVM.currentPage = pagina;
+    this.tipoVM.onClickPagina(() => {
+      this.tipoVM.listado(() => { });
+    });
   }
 }

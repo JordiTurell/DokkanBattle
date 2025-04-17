@@ -20,13 +20,10 @@ export class TiposService {
   }
 
   listarTipos(page: number = 1, limit: number = 10): Observable<ResponseList<Tipo>> {
-    const responselist: ResponseList<Tipo> = {
-      items: [],
-      total: 0,
+     const responselist = {
       page: page,
       limit: limit
-     }
-     
+    }
      return this.http.post<ResponseList<Tipo>>(`${environment.api}/tipos/listar`, responselist);
   }
 

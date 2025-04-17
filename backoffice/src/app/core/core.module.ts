@@ -12,6 +12,7 @@ const routes : Routes = [
       { path: 'categorias', loadChildren: () => import('@core/categorias/categorias.module').then(m => m.CategoriasModule) },
       { path: 'iconos', loadChildren: () => import('@core/iconos/iconos.module').then(m => m.IconosModule) },
       { path: 'links', loadChildren: () => import('@core/links/links.module').then(m => m.LinksModule) },
+      { path: 'personajes', loadChildren: () => import('@core/personajes/personajes.module').then(m => m.PersonajesModule) },
     ], canActivate: [AuthGuard]}
 ]
 

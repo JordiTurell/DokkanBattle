@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
-import { AuthService } from '../services/auth/auth.service';
+import { map, Observable, of, tap } from 'rxjs';
+import { AuthService } from '@infrastructure/services/auth/auth.service';
 
 
 @Injectable({
@@ -27,17 +27,20 @@ export class AuthGuard {
     CanAccess():Observable<boolean> | boolean {
         const token = this.authService.getToken();
 
-        if(token != null ){
+        if (token != null) {
             return this.authService.isAuthenticated(token).pipe(
-            tap((response) => {
-                if (!response) {
-                this.router.navigate(['/login'])
-                }
-            }),
-            )
-        }else{
-            this.router.navigate(['/login'])
-            return false;
+                map((response) => {
+                    if (response.authenticated) {
+                        return true;
+                    } else {
+                        this.router.navigate(['/login']);
+                        return false;
+                    }
+                })
+            );
+        } else {
+            this.router.navigate(['/login']);
+            return of(false); 
         }
     }  
 }

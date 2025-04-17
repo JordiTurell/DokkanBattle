@@ -52,10 +52,11 @@ export class TiposVM{
     });
   }
 
-  public listarTodos():void{
+  public listarTodos(onSuccess:()=>void):void{
     this.tiposService.listarAllTipos().subscribe({
       next: (tipos) => {
         this.list = tipos;
+        onSuccess();
       },
       error: (error) => {
         console.error('Error al obtener los tipos', error);
@@ -94,18 +95,12 @@ export class TiposVM{
     })
   }
 
-  anterior() {
-    if(this.currentPage > 1) {
-      this.currentPage--;
-      this.tiposService.listarTipos(this.currentPage, this.itemsPerPage);
-    }
+  public onChangeItemsPerPage(onSuccess:()=>void):void{
+    this.listado(onSuccess);
   }
-  
-  public siguiente() {
-    if(this.currentPage < this.totalPaginas) {
-      this.currentPage++;
-      this.tiposService.listarTipos(this.currentPage, this.itemsPerPage);
-    }
+
+  public onClickPagina(onSuccess:()=>void):void{
+    this.listado(onSuccess);
   }
 
   getItem(id:number, onSuccess:(result:boolean) =>void): void{

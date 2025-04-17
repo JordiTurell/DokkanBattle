@@ -6,7 +6,7 @@ export class nivelCartaController {
    async listar(req: Request, res: Response): Promise<void> {
       try{
         const page = req.body.page || 1;
-        const limit = parseInt(req.body.limit as string) || 10;
+        const limit = parseInt(req.body.size as string) || 10;
         const offset = (page - 1) * limit;
 
         const total = await nivelCarta.count();

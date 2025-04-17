@@ -1,11 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { TiposService } from '../../../service/tipos/tipos.service';
-// import { Tipo } from '../../../models/tipo';
-// import { environment } from '../../../../../environments/environment';
-// import { NivelCartaService } from '../../../../service/nivel-carta/nivel-carta.service';
-// import { Nivelcarta } from '../../../models/nivelcarta';
+import { TiposVM } from '@infrastructure/vm/tipos-vm';
 
 @Component({
   selector: 'app-back-ficha-personajes',
@@ -14,28 +10,28 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './back-ficha-personajes.component.css'
 })
 export class BackFichaPersonajesComponent implements OnInit{
-  // isedit:Boolean = false;
-  // formcart!: FormGroup;
-  // alltipos: Tipo[] = [];
-  // rutaimagen: string = '';
-  // rutanivelcarta:string = ''
-  // rutacarta: string = '';
-  // allnivelcarta: Nivelcarta[] = [];
-  // selectedFile!: File;
-  // imageView:string | ArrayBuffer | null = null
+  route:ActivatedRoute = inject(ActivatedRoute)
+  router:Router = inject(Router)
+  formcart: FormGroup;
+  tiposvm: TiposVM = inject(TiposVM)
+  isedit: boolean = false
+  rutaimagen:string = ''
 
-  // constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private tiposservice: TiposService, private nivelcarta:NivelCartaService){ 
-  //   this.formcart = this.formBuilder.group({
-  //     idnivelcarta: ['', Validators.required],
-  //     titulo: ['', Validators.required],
-  //     habilidadLider: ['', Validators.required],
-  //     fechaSalida: ['', Validators.required],
-  //     fechaEza: ['', Validators.required],
-  //     eza: ['']
-  //   });
-  // }
+  constructor(private formBuilder: FormBuilder){ 
+     this.formcart = this.formBuilder.group({
+       idnivelcarta: ['', Validators.required],
+       titulo: ['', Validators.required],
+       habilidadLider: ['', Validators.required],
+       fechaSalida: ['', Validators.required],
+       fechaEza: ['', Validators.required],
+       eza: ['']
+     });
+   }
 
   ngOnInit(): void {
+    this.tiposvm.listarTodos(()=> {
+
+    })
   //   this.tiposservice.listarAllTipos().subscribe((data) => {
   //     this.alltipos = data;
   //   })
@@ -45,14 +41,14 @@ export class BackFichaPersonajesComponent implements OnInit{
   //   })
   }
 
-  // onSelectTipo(event:Event):void{
+  onSelectTipo(event:Event):void{
   //   const id = (event.target as HTMLSelectElement).value;
   //   let background = document.getElementById('background-card-icon') as HTMLImageElement;
   //   this.rutaimagen = environment.urlimages + this.alltipos.find(t => t.id == parseInt(id))?.pathimagen || '';
   //   background.src = this.rutaimagen;
-  // }
+  }
 
-  // onSelectNivel(event:Event):void{
+  onSelectNivel(event:Event):void{
   //   const id = (event.target as HTMLSelectElement).value;
   //   switch(parseInt(id)){
   //     case 1:
@@ -77,9 +73,9 @@ export class BackFichaPersonajesComponent implements OnInit{
   //       this.rutanivelcarta = '';
   //       break;
   //   }
-  // }
+  }
 
-  // onFileSelected(event:Event):void{
+  onFileSelected(event:Event):void{
   //   const input = event.target as HTMLInputElement
   //   if(input.files && input.files.length > 0){
   //     this.selectedFile = input.files[0]
@@ -98,15 +94,15 @@ export class BackFichaPersonajesComponent implements OnInit{
   //     }
   //     reader.readAsDataURL(this.selectedFile)
   //   }
-  // }
+  }
 
-  // onSubmit(){
-  //   if(this.formcart.valid){
-  //     if(this.isedit){
-        
-  //     }else{
-        
-  //     }
-  //   }
-  // }
+  onSubmit(){
+    if(this.formcart.valid){
+      if(this.isedit){
+     
+      }else{
+     
+      }
+    }
+  }
 }

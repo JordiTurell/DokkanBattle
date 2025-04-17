@@ -36,6 +36,24 @@ export class BackListLinksComponent implements OnInit {
     this.linksvm.onDelete(id)
   }
 
+  onDetall(id: number) {
+    this.router.navigate(['/links/detall', id]);
+  }
+
+  onChangeItemsPerPage(items:number) {
+    this.linksvm.itemsPerPage = items;
+    this.linksvm.onChangeItemsPerPage(() => {
+      this.linksvm.listar(() => { });
+    });
+  }
+
+  onClickPagina(pagina:number){
+    this.linksvm.currentPage = pagina;
+    this.linksvm.onClickPagina(() => {
+      this.linksvm.listar(() => { });
+    });
+  }
+
   verNiveles(id: number) {
     this.router.navigate(['/links/niveles/', id]);
   }

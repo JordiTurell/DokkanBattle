@@ -50,11 +50,11 @@
 
   <div class="mt-4 space-x-2">
     <div class="flex justify-start">
-      <span>Mostrando registros del 1 al {{itemsPerPage()}} de un total de {{totalItems()}} registros</span>
+      <span>Mostrando registros del 1 al {{itemsPerPage()}} de un total de {{totalItems}} registros</span>
     </div>
     <div class="flex justify-end space-x-2">
       <span>Mostrar</span>
-        <select (change)="changeItemsPerPage($event)" class="border border-gray-300 rounded-md mb-1">
+        <select (change)="onChangeItemsPerPage($event)" class="border border-gray-300 rounded-md mb-1">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="25" selected>25</option>
@@ -63,9 +63,9 @@
           <option value="1000">1000</option>
         </select>
         <span>Registros</span>
-      <button class="rounded-full bg-blue-300 text-white p-1 w-30 hover:bg-blue-500">Anterior</button>
-      <span>Página {{ currentPage() }} de {{ totalPaginas() }}</span>
-      <button class="rounded-full bg-blue-300 text-white p-1 w-30 hover:bg-blue-500">Siguiente</button>
+      <button class="rounded-full bg-blue-300 text-white p-1 w-30 hover:bg-blue-500" (click)="onPreviousPage()" [disabled]="currentPage() === 1">Anterior</button>
+      <span>Página {{ currentPage() }} de {{ totalPaginas }}</span>
+      <button class="rounded-full bg-blue-300 text-white p-1 w-30 hover:bg-blue-500" (click)="onNextPage()" [disabled]="currentPage() === totalPaginas">Siguiente</button>
     </div>    
   </div>
 </div>

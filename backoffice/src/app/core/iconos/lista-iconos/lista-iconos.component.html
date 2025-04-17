@@ -4,5 +4,5 @@
 </div>
 
 @if(iconosVM.list.length > 0){
-  <app-table [columnas]="iconosVM.columns" [data]="iconosVM.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)"></app-table>
+  <app-table [columnas]="iconosVM.columns" [data]="iconosVM.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)" (changeItemsPerPage)="onChangeItemsPerPage($event)" (clickpagina)="onClickPagina($event)" [totalItems]="iconosVM.totalItems" [totalPaginas]="iconosVM.totalPaginas"></app-table>
 }

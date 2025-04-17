@@ -48,13 +48,6 @@ export class IconoVM{
     
   }
 
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.listado(() => {
-      
-    });
-  }
-
   public onDelete(id:number):void{
     this.iconosService.eliminar(id).subscribe({
       next: (response) => {
@@ -77,5 +70,13 @@ export class IconoVM{
     this.iconosService.updateIcon(formData).subscribe((response) => {
       onSuccess();
     })
+  }
+
+  public onChangeItemsPerPage(onSuccess:()=>void):void{
+    this.listado(onSuccess);
+  }
+
+  public onClickPagina(onSuccess:()=>void):void{
+    this.listado(onSuccess);
   }
 }

@@ -9,5 +9,5 @@
 </div>
 
 @if(linksvm.list.length > 0){
-  <app-table [columnas]="linksvm.columns" [data]="linksvm.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)"></app-table>
+  <app-table [columnas]="linksvm.columns" [data]="linksvm.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)" (btndetall)="onDetall($event)" (changeItemsPerPage)="onChangeItemsPerPage($event)" (clickpagina)="onClickPagina($event)" [totalItems]="linksvm.totalItems" [totalPaginas]="linksvm.totalPaginas"></app-table>
 }

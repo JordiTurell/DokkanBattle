@@ -29,7 +29,7 @@ export class LinksVM{
 
   }
 
-  listar(onSuccess:()=>void):void{
+  public listar(onSuccess:()=>void):void{
     this.linkService.listarLinks(this.currentPage, this.itemsPerPage).subscribe({
       next: (response) => {
         if (response) {
@@ -48,7 +48,7 @@ export class LinksVM{
     });
   }
 
-  getItem(id:number, onSuccess:()=>void):void{
+  public getItem(id:number, onSuccess:()=>void):void{
     this.linkService.obtenerLink(id).subscribe({
       next: (response) => {
         if (response) {
@@ -65,7 +65,7 @@ export class LinksVM{
     });
   }
 
-  updateLink(onSuccess:()=>void):void{
+  public updateLink(onSuccess:()=>void):void{
     this.linkService.editarLink(this.linkdto).subscribe({
       next: (response) => {
         toast.success('Link actualizado correctamente.');
@@ -81,7 +81,7 @@ export class LinksVM{
     });
   }
 
-  createLink(onSuccess:()=>void):void{
+  public createLink(onSuccess:()=>void):void{
     this.linkService.nuevoLink(this.linkdto).subscribe({
       next: (response) => {
         toast.success('Link creado correctamente.');
@@ -94,16 +94,17 @@ export class LinksVM{
     });
   }
 
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.listar(() => {
-      
-    });
+  public onChangeItemsPerPage(onSuccess:()=>void):void{
+    this.listar(onSuccess);
+  }
+
+  public onClickPagina(onSuccess:()=>void):void{
+    this.listar(onSuccess);
   }
 
   
 
-  onDelete(id:number){
+  public onDelete(id:number){
     this.linkService.eliminarLink(id).subscribe({
       next: (response) => {
         if (response) {
@@ -119,6 +120,5 @@ export class LinksVM{
         
       }
     });
-
   }
 }

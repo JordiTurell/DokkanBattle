@@ -12,8 +12,9 @@ export class CategoriasVM {
   public list = [] as CategoriasDto[];
   public currentPage = 1;
   public itemsPerPage = 10;
-  public totalItems = 0;
+  public totalItems = 100;
   public totalPaginas = Math.ceil(this.totalItems / this.itemsPerPage);
+
   private categoriasService: CategoriasService = inject(CategoriasService);
   public columns: any[] = [ 
     { title:'Nombre', key: 'nombre', type: null },
@@ -26,7 +27,7 @@ export class CategoriasVM {
         next: (response) => {
           this.list = response.items;
           this.totalItems = response.total;
-          Math.ceil(this.totalItems / this.itemsPerPage)
+          this.totalPaginas = Math.ceil(response.total / response.limit);
           onSuccess();
         },
         error: (error) => {
@@ -73,13 +74,6 @@ export class CategoriasVM {
     })
   }
 
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.cargarCategorias(() => {
-      
-    });
-  }
-
   onDelete(id:number) {
     this.categoriasService.deleteCategoria(id).subscribe({
       next: () => {
@@ -90,5 +84,13 @@ export class CategoriasVM {
         toast.error('No se pudo eliminar la categoría. Intente nuevamente más tarde.');
       }
     });
+  }
+
+  public onChangeItemsPerPage(onSuccess:()=>void):void{
+    this.cargarCategorias(onSuccess);
+  }
+
+  public onClickPagina(onSuccess:()=>void):void{
+    this.cargarCategorias(onSuccess);
   }
 }

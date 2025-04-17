@@ -1,4 +1,4 @@
-<!-- <h1 class="text-2xl font-bold">Niveles de {{linkTitle}}</h1>
+<h1 class="text-2xl font-bold">Niveles de {{linkTitle}}</h1>
 
 <div class="flex flex-col gap-4">
     <form [formGroup]="form" class="flex items-center justify-between gap-4">
@@ -9,26 +9,8 @@
         </div>
         <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-md whitespace-nowrap mt-6" (click)="isedit ? edit() : nuevo()">{{ isedit ? 'Editar' : 'Agregar Nivel' }}</button>
       </form>
-</div> -->
-
-<div class="container mt-4">
-  <table class="w-full border border-gray-300 rounded-lg mb-4">
-    <thead class="bg-gray-200">
-      <th class="px-4 py-2 text-left">ID</th>
-      <th class="px-4 py-2 text-left">Nombre</th>
-      <th class="px-4 py-2 text-left">Acciones</th>
-    </thead>
-    <tbody>
-      <!-- @for (nivel of niveles; track nivel.id) {
-        <tr class="hover:bg-gray-400">
-          <td>{{nivel.id}}</td>
-          <td>{{nivel.descripcion}}</td>
-          <td class="space-x-2 p-2">
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-md whitespace-nowrap cursor-pointer shadow-blue-900 hover:shadow-none" (click)="editar(nivel.id)">Editar</button>
-            <button class="bg-red-500 text-white px-4 py-2 rounded-md whitespace-nowrap cursor-pointer shadow-red-900 hover:shadow-none" (click)="eliminar(nivel.id)">Eliminar</button>
-          </td>
-        </tr>
-      } -->
-    </tbody>
-  </table>
 </div>
+
+@if(linksvm.list.length > 0){
+  <app-table [columnas]="linksvm.columns" [data]="linksvm.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)" (changeItemsPerPage)="onChangeItemsPerPage($event)" (clickpagina)="onClickPagina($event)" [totalItems]="linksvm.totalItems" [totalPaginas]="linksvm.totalPaginas"></app-table>
+}

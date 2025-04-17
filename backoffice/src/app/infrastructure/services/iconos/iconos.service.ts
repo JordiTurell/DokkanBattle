@@ -22,14 +22,12 @@ export class IconosService {
   }
 
   listar(page: number = 1, limit: number = 10): Observable<ResponseList<Icono>> {
-     const responselist: ResponseList<Icono> = {
-      items: [],
-      total: 0,
+    const responselist = {
       page: page,
       limit: limit
-     }
+    }
       
-      return this.http.post<ResponseList<Icono>>(`${environment.api}/iconos/listar`, responselist);
+    return this.http.post<ResponseList<Icono>>(`${environment.api}/iconos/listar`, responselist);
   }
 
   eliminar(id: number): Observable<Responseitem<string>>{

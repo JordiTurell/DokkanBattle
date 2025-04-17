@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,19 @@ import { Observable, of } from 'rxjs';
 export class AuthService {
 
   localstoragetoken = environment.token
+  http: HttpClient = inject(HttpClient);
   
-  isAuthenticated(token:string):Observable<boolean> {
-    return of(false)
+  isAuthenticated(token: string): Observable<{ authenticated: boolean; statusCode: number }> {
+    return this.http.get(`${environment.api}/auth/verificartoken`, { observe: 'response', params: { token } }).pipe(
+      map((response) => ({
+        authenticated: true,
+        statusCode: response.status // Código HTTP en caso de éxito
+      })),
+      catchError((error) => of({
+        authenticated: false,
+        statusCode: error.status // Código HTTP en caso de error
+      }))
+    );
   }
 
   setToken(token: string): boolean {

@@ -9,5 +9,5 @@
 </div>
 
 @if(tipos.length > 0){
-  <app-table [columnas]="tipoVM.columns" [data]="tipoVM.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)"></app-table>
+  <app-table [columnas]="tipoVM.columns" [data]="tipoVM.list" (btnedit)="onEdit($event)" (btndelete)="onDelete($event)" (changeItemsPerPage)="onChangeItemsPerPage($event)" (clickpagina)="onClickPagina($event)" [totalItems]="tipoVM.totalItems" [totalPaginas]="tipoVM.totalPaginas"></app-table>
 }

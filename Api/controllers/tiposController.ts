@@ -10,7 +10,7 @@ export class TiposController {
           const offset = (page - 1) * limit;
 
           const total = await Tipo.count();
-
+          
           const tipos = await Tipo.findAll({
             limit: limit,
             offset: offset,
