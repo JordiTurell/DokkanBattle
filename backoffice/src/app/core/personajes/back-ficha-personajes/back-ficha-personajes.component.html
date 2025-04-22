@@ -18,16 +18,36 @@
           <img id="imgcard" [src]="" height="72" alt="rarity" class="hidden h-[160px] -mt-[25px] -ml-[20px]" />
         </div>
         
-        <!-- @if(rutanivelcarta != ''){
+        @if(rutanivelcarta != ''){
           <div class="card-icon-item mt-[80px] -ml-2 z-3">
             <img [src]="rutanivelcarta" height="72" alt="rarity">
           </div>
-        } -->
+        }
+      </div>
+      <div class="col relative">
+        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+          <img id="background-personaje" [src]="rutafondo" alt="background" class="h-[120px]" />
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+          <img id="imgpersonaje" [src]="rutaimagenpersonaje" alt="personaje" class="h-[120px]" />
+        </div>
       </div>
     } 
     <div>
-      <label class="block text-sm font-medium text-gray-700">Imagen carta</label>
-      <input id="imgcardfileinput" class="cursor-pointer w-1/2 border-2 m-2" type="file" (change)="onFileSelected($event)" />
+      <label class="block text-sm font-medium text-gray-700">Imagen icono carta</label>
+      <app-file-input (fileSelected)="onFileChange($event)"></app-file-input>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Imagen icono carta</label>
+      <input id="imgcardfileinput" class="cursor-pointer w-full border rounded-md p-2 focus:ring focus:ring-blue-200" type="file" (change)="onFileSelectedIcono($event)" disabled />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Imagen fondo carta</label>
+      <input id="imgcardfileinput" class="cursor-pointer w-full border rounded-md p-2 focus:ring focus:ring-blue-200" type="file" (change)="onFileSelectedBackground($event)" disabled />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Imagen personaje</label>
+      <input id="imgcardfileinput" class="cursor-pointer w-full border rounded-md p-2 focus:ring focus:ring-blue-200" type="file" (change)="onFileSelectedPersonaje($event)" disabled />
     </div>
     <div>
       <label class="block text-sm font-medium text-gray-700">Habilidad de Líder</label>
@@ -36,23 +56,23 @@
   </div>
 
   <!-- Segunda columna -->
-  <div class="space-y-4">
+  <div class="space-y-4 -mt-1">
     <div>
       <label class="block text-sm font-medium text-gray-700">Tipo de carta</label>
       <select id="combotipos" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" (change)="onSelectTipo($event)">
         <option value="0">Selecciona un tipo</option>
-        <!-- @for(tipo of alltipos; track tipo.id){
+        @for(tipo of personajesvm.opcionestipos; track tipo.id){
           <option value="{{tipo.id}}">{{tipo.nombre}}</option>
-        } -->
+        }
       </select>
     </div>
     <div>
       <label class="block text-sm font-medium text-gray-700">Nivel de carta</label>
       <select id="combo-nivel-carta" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" (change)="onSelectNivel($event)">
         <option value="0">Selecciona un nivel</option>
-        <!-- @for(nivelcarta of allnivelcarta; track nivelcarta.id){
+        @for(nivelcarta of personajesvm.nivelescarta; track nivelcarta.id){
           <option value="{{nivelcarta.id}}">{{nivelcarta.nombre}}</option>
-        } -->
+        }
       </select>
     </div>
     <div>

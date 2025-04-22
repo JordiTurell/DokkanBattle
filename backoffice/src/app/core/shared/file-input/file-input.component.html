@@ -1,0 +1,7 @@
+<div class="file-upload-container">
+  <label class="file-upload-label">
+    <input type="file" class="hidden" (change)="onFileChange($event)" />
+    <span class="file-upload-button">Seleccionar archivo</span>
+  </label>
+  <span class="file-upload-filename">{{ selectedFileName }}</span>
+</div>

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter, signal, computed, effect } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
+import { environment } from '@environments/environment';
 
 
 @Component({

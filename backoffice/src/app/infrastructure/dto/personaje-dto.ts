@@ -4,4 +4,6 @@ export interface PersonajeDto {
   fechaEza: Date,
   fechaSalida: Date,
   eza: boolean,
+  idnivelcarta: number,
+  idtipo: number,
 }
