@@ -2,62 +2,14 @@
   {{isedit ? "Editar Personaje" : "Crear Personaje"}}
 </h1>
 
-<form [formGroup]="formcart"class="mt-8 space-y-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+
+
+<form [formGroup]="formcart" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
   <!-- Primera columna -->
   <div class="space-y-4">
-    @if(rutaimagen != ''){
-      <div class="col card-icon unselectable">
-        <div class="card-icon-item card-icon-item-base card-info-base">
-          <img id="background-card-icon" [src]="rutaimagen" alt="background" class="h-[120px]" />
-        </div>
-        <div class="card-icon-item card-info-lwf" style="user-select: none; transform: translateZ(0px);">
-          <canvas id="card-84510906" height="150" width="150" style="user-select: none; transform: translateZ(0px);"></canvas>
-        </div>
-        
-        <div class="card-icon-item mt-0 ml-0 z-3">
-          <img id="imgcard" [src]="" height="72" alt="rarity" class="hidden h-[160px] -mt-[25px] -ml-[20px]" />
-        </div>
-        
-        @if(rutanivelcarta != ''){
-          <div class="card-icon-item mt-[80px] -ml-2 z-3">
-            <img [src]="rutanivelcarta" height="72" alt="rarity">
-          </div>
-        }
-      </div>
-      <div class="col relative">
-        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-          <img id="background-personaje" [src]="rutafondo" alt="background" class="h-[120px]" />
-        </div>
-        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-          <img id="imgpersonaje" [src]="rutaimagenpersonaje" alt="personaje" class="h-[120px]" />
-        </div>
-      </div>
-    } 
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Imagen icono carta</label>
-      <app-file-input (fileSelected)="onFileChange($event)"></app-file-input>
-    </div>
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Imagen icono carta</label>
-      <input id="imgcardfileinput" class="cursor-pointer w-full border rounded-md p-2 focus:ring focus:ring-blue-200" type="file" (change)="onFileSelectedIcono($event)" disabled />
-    </div>
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Imagen fondo carta</label>
-      <input id="imgcardfileinput" class="cursor-pointer w-full border rounded-md p-2 focus:ring focus:ring-blue-200" type="file" (change)="onFileSelectedBackground($event)" disabled />
-    </div>
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Imagen personaje</label>
-      <input id="imgcardfileinput" class="cursor-pointer w-full border rounded-md p-2 focus:ring focus:ring-blue-200" type="file" (change)="onFileSelectedPersonaje($event)" disabled />
-    </div>
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Habilidad de Líder</label>
-      <input type="text" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" placeholder="Habilidad de Líder" formControlName="habilidadlider" />
-    </div>
-  </div>
-
-  <!-- Segunda columna -->
-  <div class="space-y-4 -mt-1">
-    <div>
+    <div class="col-span-1">
       <label class="block text-sm font-medium text-gray-700">Tipo de carta</label>
       <select id="combotipos" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" (change)="onSelectTipo($event)">
         <option value="0">Selecciona un tipo</option>
@@ -66,25 +18,86 @@
         }
       </select>
     </div>
-    <div>
+
+    <div class="col-span-1">
       <label class="block text-sm font-medium text-gray-700">Nivel de carta</label>
-      <select id="combo-nivel-carta" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200" (change)="onSelectNivel($event)">
+      <select id="combo-nivel-carta" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 disabled:bg-gray-100" 
+      [ngClass]="{
+        'bg-gray-100 text-gray-500 cursor-not-allowed': !tiposeleccionado,
+        'bg-white text-black': tiposeleccionado
+      }" (change)="onSelectNivel($event)" [disabled]="!tiposeleccionado">
         <option value="0">Selecciona un nivel</option>
         @for(nivelcarta of personajesvm.nivelescarta; track nivelcarta.id){
           <option value="{{nivelcarta.id}}">{{nivelcarta.nombre}}</option>
         }
       </select>
     </div>
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
+    <div class="col-span-1">
+      <label class="block text-sm font-medium text-gray-700">Fecha de salida</label>
       <input type="date" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200">
     </div>
-  </div> 
+    <div class="col-span-1">
+      <label class="block text-sm font-medium text-gray-700">Skill de lider</label>
+      <input type="text" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200">
+    </div>
+  </div>
 
-  <!-- Botón enviar, ocupa ambas columnas -->
-  <div class="md:col-span-2 flex justify-end">
-    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-md" (click)="onSubmit()">
-      {{isedit ? "Editar" : "Crear"}}
-    </button>
-  </div> 
+  <!-- Segunda columna -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Primera fila de la segunda columna (dividida en dos columnas) -->
+    <div class="col-span-1">
+      <h2 class="text-lg font-bold">Icono Imagen</h2>
+      @if(rutaimagen != ''){
+        <div class="col card-icon unselectable">
+          <div class="card-icon-item card-icon-item-base card-info-base">
+            <img id="background-card-icon" [src]="rutaimagen" alt="background" class="h-[120px]" />
+          </div>
+          <div class="card-icon-item card-info-lwf" style="user-select: none; transform: translateZ(0px);">
+            <canvas id="card-84510906" height="150" width="150" style="user-select: none; transform: translateZ(0px);"></canvas>
+          </div>
+          
+          <div class="card-icon-item mt-0 ml-0 z-3">
+            <img id="imgcard" [src]="" height="72" alt="rarity" class="hidden h-[160px] -mt-[25px] -ml-[20px]" />
+          </div>
+          
+          @if(rutanivelcarta != ''){
+            <div class="card-icon-item mt-[80px] -ml-2 z-3">
+              <img [src]="rutanivelcarta" height="72" alt="rarity">
+            </div>
+            <div class="col-span-1 mt-2">
+              <label class="block text-sm font-medium text-gray-700">Imagen icono carta</label>
+              <app-file-input (fileSelected)="onFileChange($event)"></app-file-input>
+            </div>
+          }
+        </div>
+      }
+    </div>
+    <div class="col-span-1">
+      <h2 class="text-lg font-bold">Imagen Carta</h2>
+      <div class="col-span-1 mt-2 relative w-full h-[500px]">
+        
+          <img id="background-card" [src]="rutafondo" alt="background" class="absolute top-0 left-0 w-full h-[500px] object-cover z-0 hidden" />       
+          <img id="personaje-card" [src]="rutaimagenpersonaje" alt="background" class="absolute top-0 left-0 w-full h-[500px] object-contain z-10 hidden" />
+      </div>
+      <label class="block text-sm font-medium text-gray-700">Imagen fondo carta</label>
+      <app-file-input (fileSelected)="onFileSelectedFondoCarta($event)"></app-file-input>
+      <label class="block text-sm font-medium text-gray-700">Imagen personaje carta</label>
+      <app-file-input (fileSelected)="onFileSelectedPersonajeCarta($event)"></app-file-input>
+    </div>
+
+    <!-- Segunda fila de la segunda columna (ocupa todo el ancho) -->
+    <div class="col-span-2">
+      <h2 class="text-lg font-bold">Segunda Fila</h2>
+      <p>Contenido que ocupa toda la segunda fila de la segunda columna.</p>
+      <img src="https://via.placeholder.com/300" alt="Imagen 2" class="w-full h-auto border rounded-md" />
+    </div>
+  </div>
 </form>
+
+
+
+
+
+
+
+
